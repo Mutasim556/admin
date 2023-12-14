@@ -178,7 +178,7 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Column -->
-            <div class="col-lg-10 mx-auto">
+            <div class="col-lg-11 mx-auto">
                 <div class="card">
                     <div class="card-header py-3" style="border-bottom: 2px dashed gray">
                         <h3 class="card-title mb-0 text-center">{{ __('User List') }}</h3>
