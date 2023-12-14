@@ -23,9 +23,9 @@
                         <h4 class="text-center">{{ __('Log In') }}</h4>
                         {{-- <p class="text-center">Enter your email & password to login</p> --}}
                         <div class="form-group">
-                            <label class="col-form-label"><strong>{{ __('User Email') }}</strong></label>
-                            <input class="form-control" id="user_email" name="user_email" type="text" />
-                            @error('user_email')
+                            <label class="col-form-label"><strong>{{ __('Email / Phone / Username') }}</strong></label>
+                            <input class="form-control" id="user_email" name="user_credential" type="text" placeholder="Enhter Your Email or Phone or Username"  value="{{ old('user_credential') }}"/>
+                            @error('user_credential')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
