@@ -20,4 +20,28 @@
             </li>
         </ul>
     </li>
+    <li class="sidebar-list">
+        <a class="sidebar-link sidebar-title" href="javascript:void(0)"
+            aria-expanded="false">
+            <i data-feather="award"></i>
+            <span class="lan-3">{{ __('Doctor Section') }}</span>
+        </a>
+        <ul class="sidebar-submenu">
+            <li>
+                <a href="{{ route('chamber.index') }}" class="sidebar-link">
+                    <span > {{ __('Chamber List') }} </span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('speciality.index') }}" class="sidebar-link">
+                    <span > {{ __('Doctor Speciality') }} </span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('department.index') }}" class="sidebar-link">
+                    <span > {{ __('Doctor Department') }} </span>
+                </a>
+            </li>
+        </ul>
+    </li>
 </ul>

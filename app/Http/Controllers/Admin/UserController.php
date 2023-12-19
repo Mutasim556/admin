@@ -127,4 +127,6 @@ class UserController extends Controller
         $user = User::where('id',$data->id)->first();
         return $user;
     }
+
+    
 }

@@ -31,6 +31,7 @@
     <!-- Responsive css-->
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/css/responsive.css') }}">
     @stack('page_css')
+    <link rel="stylesheet" href="{{ asset('admin/assets/css/my_style.css') }}">
 </head>
 
 <body >
@@ -152,7 +153,7 @@
                         <li class="profile-nav onhover-dropdown">
                             <div class="account-user"><i data-feather="user"></i></div>
                             <ul class="profile-dropdown onhover-show-div">
-                                <li><a href="user-profile.html"><i data-feather="user"></i><span>Account</span></a>
+                                <li><a href="{{ route('admin.profile') }}"><i data-feather="user"></i><span>Account</span></a>
                                 </li>
                                 <li><a href="email_inbox.html"><i data-feather="mail"></i><span>Inbox</span></a></li>
                                 <li><a href="edit-profile.html"><i
