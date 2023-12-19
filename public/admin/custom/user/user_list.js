@@ -84,7 +84,7 @@ $(document).on('change','#status_change',function(){
     var status = $(this).data('status');
     var update_id = $(this).closest('tr').data('id');
     var parent_td = $(this).parent();
-    parent_td.empty().append(`<i class="fa fa-refresh fa-spin"></i>`);
+    parent_td.empty().append(`<div class="loader-box"><div class="loader-35"></div></div>`);
     $.ajax({
         type: "get",
         url: 'user/update/status/'+update_id+"/"+status,

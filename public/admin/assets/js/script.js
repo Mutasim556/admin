@@ -228,6 +228,8 @@ $(document).ready(function () {
         $("#ColorPicker1").val(primary_val);
         var secondary_val = localStorage.getItem("secondary");
         $("#ColorPicker2").val(secondary_val);
+    }else{
+        localStorage.setItem('primary','#167A93');
     }
 
 
