@@ -44,4 +44,29 @@
             </li>
         </ul>
     </li>
+
+    <li class="sidebar-list">
+        <a class="sidebar-link sidebar-title" href="javascript:void(0)"
+            aria-expanded="false">
+            <i data-feather="slack"></i>
+            <span class="lan-3">{{ __('Language') }}</span>
+        </a>
+        <ul class="sidebar-submenu">
+            <li>
+                <a href="{{ route('language.index') }}" class="sidebar-link">
+                    <span > {{ __('Language List') }} </span>
+                </a>
+            </li>
+            <li>
+                <a href="" class="sidebar-link">
+                    <span > {{ __('Admin Language') }} </span>
+                </a>
+            </li>
+            <li>
+                <a href="" class="sidebar-link">
+                    <span > {{ __('Frontend Language') }} </span>
+                </a>
+            </li>
+        </ul>
+    </li>
 </ul>

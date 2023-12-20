@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\Admin\Doctor\ChamberController;
 use App\Http\Controllers\Admin\Doctor\DepartmentController;
 use App\Http\Controllers\Admin\Doctor\SpecialityController;
+use App\Http\Controllers\Admin\Language\LanguageController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -60,5 +61,10 @@ Route::middleware('auth')->group(function(){
     Route::resource('doctor/department',DepartmentController::class)->except(['create','show']);
     Route::controller(DepartmentController::class)->name('department.')->prefix('doctor/department')->group(function () {
         Route::get('/update/status/{id}/{status}', 'updateStatus')->name('department_status');
+    });
+
+    Route::resource('language',LanguageController::class);
+    Route::controller(LanguageController::class)->name('language.')->prefix('language')->group(function () {
+        Route::get('/update/status/{id}/{status}', 'updateStatus')->name('language_status');
     });
 });
