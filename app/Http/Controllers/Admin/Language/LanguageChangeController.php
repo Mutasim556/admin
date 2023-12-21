@@ -13,10 +13,9 @@ class LanguageChangeController extends Controller
     public function __invoke(Request $data)
     {
         try {
-            // dd($data->code);
             session()->put('language',$data->code);
         } catch (\Throwable $th) {
-            //throw $th;
+            session(['language'=>'en']);
         }
     }
 }
