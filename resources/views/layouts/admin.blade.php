@@ -5,8 +5,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="tivo admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
-    <meta name="keywords" content="admin template, Tivo admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="description"
+        content="tivo admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
+    <meta name="keywords"
+        content="admin template, Tivo admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="pixelstrap">
     <link rel="icon" href="{{ asset('admin/assets/images/favicon/favicon.png') }}" type="image/x-icon">
     <link rel="shortcut icon" href="{{ asset('admin/assets/images/favicon/favicon.png') }}" type="image/x-icon">
@@ -34,7 +36,7 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/css/my_style.css') }}">
 </head>
 
-<body >
+<body>
     <!-- tap on top starts-->
     {{-- <div class="tap-top"><i data-feather="chevrons-up"></i></div> --}}
     <!-- tap on tap ends-->
@@ -56,12 +58,13 @@
                     <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i>
                     </div>
                     <div class="logo-header-main"><a href="index.html"><img class="img-fluid for-light img-100"
-                                src="{{ asset('admin/assets/images/logo/logo2.png')}}" alt=""><img class="img-fluid for-dark"
-                                src="{{ asset('admin/assets/images/logo/logo.png')}}" alt=""></a></div>
+                                src="{{ asset('admin/assets/images/logo/logo2.png') }}" alt=""><img
+                                class="img-fluid for-dark" src="{{ asset('admin/assets/images/logo/logo.png') }}"
+                                alt=""></a></div>
                 </div>
                 <div class="left-header col horizontal-wrapper ps-0">
                     <div class="left-menu-header">
-                        
+
                     </div>
                 </div>
                 <div class="nav-right col-6 pull-right right-header p-0">
@@ -78,7 +81,7 @@
                            
                         </li> --}}
                         <li>
-                            <div ><a href="" class="btn btn-primary">POS</a></div>
+                            <div><a href="" class="btn btn-primary">POS</a></div>
                         </li>
                         <li>
                             <div class="mode"><i class="fa fa-moon-o"></i></div>
@@ -129,7 +132,7 @@
                                 </li>
                             </ul>
                         </li>
-                        
+
                         <li class="maximize"><a href="#!" onclick="javascript:toggleFullScreen()"><i
                                     data-feather="maximize-2"></i></a></li>
                         <li class="language-nav">
@@ -137,28 +140,36 @@
                                 <div class="current_lang">
                                     <div class="lang"><i data-feather="globe"></i></div>
                                 </div>
-                                <div class="more_lang " >
-                                    <div class="lang selected" onclick="change_lang('en')"><i
-                                            class="flag-icon flag-icon-us" ></i><span class="lang-txt">English</span></div>
-                                    <div class="lang" onclick="change_lang('bn')"><i class="flag-icon flag-icon-bd"></i><span
-                                            class="lang-txt">Bangla</span></div>
-                                    <script>
-                                        function change_lang(x){
-                                            window.location.replace('/lang/change/'+x);
-                                        }
-                                    </script>
+                                <div class="more_lang">
+                                    @php
+                                        $languages = DB::table('languages')
+                                            ->where([['status', 1], ['delete', 0]])
+                                            ->get();
+                                    @endphp
+                                    @foreach ($languages as $language)
+                                        <div class="lang {{ getLanguageSession()==$language->lang?'selected':'' }}" onclick="change_lang('{{ $language->lang }}')">
+                                            {{-- <i class="flag-icon flag-icon-{{ $language->lang }}" >{{ $language->name }}</i> --}}
+                                            <span class="lang-txt">{{ $language->name }}</span>
+                                        </div>
+                                    @endforeach
+
+                                    {{-- <div class="lang selected" onclick="change_lang('bn')"><i
+                                            class="flag-icon flag-icon-bd"></i><span class="lang-txt">Bangla</span>
+                                    </div> --}}
                                 </div>
                             </div>
                         </li>
                         <li class="profile-nav onhover-dropdown">
                             <div class="account-user"><i data-feather="user"></i></div>
                             <ul class="profile-dropdown onhover-show-div">
-                                <li><a href="{{ route('admin.profile') }}"><i data-feather="user"></i><span>Account</span></a>
+                                <li><a href="{{ route('admin.profile') }}"><i
+                                            data-feather="user"></i><span>Account</span></a>
                                 </li>
                                 <li><a href="email_inbox.html"><i data-feather="mail"></i><span>Inbox</span></a></li>
                                 <li><a href="edit-profile.html"><i
                                             data-feather="settings"></i><span>Settings</span></a></li>
-                                <li><a href="{{ route('admin.logout') }}"><i data-feather="log-in"> </i><span>Log Out</span></a></li>
+                                <li><a href="{{ route('admin.logout') }}"><i data-feather="log-in"> </i><span>Log
+                                            Out</span></a></li>
                             </ul>
                         </li>
                     </ul>
@@ -240,13 +251,24 @@
     <script src="{{ asset('admin/assets/js/script.js') }}"></script>
     {{-- <script src="{{ asset('admin/assets/js/theme-customizer/customizer.js') }}"></script> --}}
     <!-- login js-->
+    <script></script>
     <script>
-        
-    </script>
-    <script>
-        $(document).ready(function(){
-            $('body').attr('class',localStorage.getItem('body'))
+        $(document).ready(function() {
+            $('body').attr('class', localStorage.getItem('body'))
         })
+
+        function change_lang(x) {
+            $.ajax({
+                type: "get",
+                url: '/change-admin-language/' + x,
+                success: function(data) {
+                    window.location.reload();
+                },
+                error : function(err){
+                    window.location.reload(); 
+                }
+            })
+        }
     </script>
 </body>
 

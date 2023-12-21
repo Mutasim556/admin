@@ -83,3 +83,13 @@ form label {
 .border-danger{
     border-color: red !important;
 }
+
+.lang.selected {
+    background-color: var(--bs-primary) !important;
+    color: var(--bs-light) !important;
+    
+}
+
+.nav-tabs {
+    border-bottom-color: var(--bs-blue) !important;
+}

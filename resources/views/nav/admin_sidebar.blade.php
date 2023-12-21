@@ -58,7 +58,7 @@
                 </a>
             </li>
             <li>
-                <a href="" class="sidebar-link">
+                <a href="{{ route('language.admin_language') }}" class="sidebar-link">
                     <span > {{ __('Admin Language') }} </span>
                 </a>
             </li>

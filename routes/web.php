@@ -4,7 +4,9 @@ use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\Admin\Doctor\ChamberController;
 use App\Http\Controllers\Admin\Doctor\DepartmentController;
 use App\Http\Controllers\Admin\Doctor\SpecialityController;
+use App\Http\Controllers\Admin\Language\LanguageChangeController;
 use App\Http\Controllers\Admin\Language\LanguageController;
+use App\Http\Controllers\Admin\Language\LocalizationController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -57,14 +59,24 @@ Route::middleware('auth')->group(function(){
         Route::get('/update/status/{id}/{status}', 'updateStatus')->name('speciality_status');
     });
 
-    //doctor department
+    /** doctor department */
     Route::resource('doctor/department',DepartmentController::class)->except(['create','show']);
     Route::controller(DepartmentController::class)->name('department.')->prefix('doctor/department')->group(function () {
         Route::get('/update/status/{id}/{status}', 'updateStatus')->name('department_status');
     });
 
-    Route::resource('language',LanguageController::class);
+    /** Language  */
+    Route::resource('language',LanguageController::class)->except(['create','show']);
     Route::controller(LanguageController::class)->name('language.')->prefix('language')->group(function () {
         Route::get('/update/status/{id}/{status}', 'updateStatus')->name('language_status');
     });
+
+    /** Admin Localiztion */
+    Route::controller(LocalizationController::class)->prefix('language')->name('language.')->group(function(){
+        Route::get('/admin-language','adminLanguage')->name('admin_language');
+    });
+
+    /** Change Admin Language */
+    Route::get('/change-admin-language/{code}',LanguageChangeController::class);
+
 });

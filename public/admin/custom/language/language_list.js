@@ -3,10 +3,13 @@ $(document).ready(function(){
     $('#slug').val('en');
 })
 $('#add_language_form #language').change(function(){
-    $('#name').val($('#add_language_form #language option:selected').text());
-    $('#slug').val($(this).val());
+    $('#add_language_form #name').val($('#add_language_form #language option:selected').text());
+    $('#add_language_form #slug').val($(this).val());
 });
-
+$('#edit_language_form #language').change(function(){
+    $('#edit_language_form #name').val($('#edit_language_form #language option:selected').text());
+    $('#edit_language_form #slug').val($(this).val());
+});
 
 //add language
 $('#add_language_form').submit(function (e) {
@@ -130,7 +133,7 @@ $(document).on('click', '#edit_button', function () {
         },
         success: function (data) {
             $('#edit_language_form #language_id').val(data.id);
-            $('#edit_language_form #language').val(data.lang);
+            $('#edit_language_form #language').val(data.lang).trigger('change');
             $('#edit_language_form #name').val(data.name);
             $('#edit_language_form #slug').val(data.slug);
             if(data.default==1){
@@ -159,4 +162,106 @@ $(document).on('click', '#edit_button', function () {
     });
 
 });
+
+
+//update data
+$('#edit_language_form').submit(function (e) {
+    e.preventDefault();
+    $('button[type=submit]', this).html('Submitting....');
+    $('button[type=submit]', this).addClass('disabled');
+    var trid = '#tr-'+$('#language_id', this).val();
+    $.ajax({
+        type: "put",
+        url: 'language/' + $('#language_id', this).val(),
+        data: $(this).serialize(),
+        dataType: 'JSON',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (data) {
+            console.log(data);
+            $('button[type=submit]', '#edit_language_form').html('Submit');
+            $('button[type=submit]', '#edit_language_form').removeClass('disabled');
+            $('td:nth-child(1)',trid).html(data.language_name);
+            swal({
+                icon: "success",
+                title: "Congratulations !",
+                text: 'Language data updated suvccessfully',
+                confirmButtonText: "Ok",
+            }).then(function () {
+                $('td:nth-child(1)',trid).html(data.name);
+                $('td:nth-child(2)',trid).html(data.slug);
+                $('td:nth-child(3)',trid).html(`${data.default==1?'<span class="badge badge-success">Yes</span>':'<span class="badge badge-danger">No</span>'}`);
+                $('#edit_language_form .err-mgs').each(function(id,val){
+                    $(this).prev('input').removeClass('border-danger is-invalid')
+                    $(this).prev('textarea').removeClass('border-danger is-invalid')
+                    $(this).empty();
+                })
+                // $('#edit_language_form').trigger('reset');
+                $('button[type=button]', '#edit_language_form').click();
+            });
+        },
+        error: function (err) {
+            $('button[type=submit]', '#edit_language_form').html('Submit');
+            $('button[type=submit]', '#edit_language_form').removeClass('disabled');
+            $('#edit_language_form .err-mgs').each(function(id,val){
+                $(this).prev('input').removeClass('border-danger is-invalid')
+                $(this).prev('textarea').removeClass('border-danger is-invalid')
+                $(this).empty();
+            })
+            $.each(err.responseJSON.errors,function(idx,val){
+                $('#edit_language_form #'+idx).addClass('border-danger is-invalid')
+                $('#edit_language_form #'+idx).next('.err-mgs').empty().append(val);
+            })
+        }
+    });
+});
+
+
+
+//delete data
+$(document).on('click','#delete_button',function(){
+    var delete_id = $(this).closest('tr').data('id');
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this language",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    }).then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                type: "delete",
+                url: 'language/'+delete_id,
+                data: {
+                    _token : $("input[name=_token]").val(),
+                },
+                success: function (data) {
+                    swal({
+                        icon: "success",
+                        title: "Congratulations !",
+                        text: 'Language deleted successfully',
+                        confirmButtonText: "Ok",
+                    }).then(function () {
+                        $('#tr-'+delete_id).remove();
+                    });
+                },
+                error: function (err) {
+                    var err_message = err.responseJSON.message.split("(");
+                    swal({
+                        icon: "warning",
+                        title: "Warning !",
+                        text: err_message[0],
+                        confirmButtonText: "Ok",
+                    });
+                }
+            });
+           
+        } else {
+            swal("Delete request canceld successfully");
+        }
+    })
+});
+
+
 

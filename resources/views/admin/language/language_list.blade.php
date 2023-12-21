@@ -122,7 +122,7 @@
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center" style="border-bottom:1px dashed gray">
                     <h4 class="modal-title" id="myLargeModalLabel">
-                        {{ __('Edit language') }}
+                        {{ __('Edit Language') }}
                     </h4>
                     <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -135,9 +135,9 @@
                         <div class="row">
                             <div class="col-lg-12 mt-2">
                                 <label for="language"><strong>{{ __('Language') }} *</strong></label>
-                                <select class="js-example-basic-single" name="language" id="language">
+                                <select class="js-example-basic-single1" name="language" id="language">
                                     @foreach (config('language') as $key=>$lang)
-                                        <option value="{{ $key }}" {{ $key=='en'?'selected':'' }}>{{ $lang['name'] }}</option>
+                                        <option value="{{ $key }}">{{ $lang['name'] }}</option>
                                     @endforeach
                                     
                                 </select>
@@ -273,6 +273,9 @@
         });
         $('.js-example-basic-single').select2({
             dropdownParent: $('#add-language-modal')
+        });
+        $('.js-example-basic-single1').select2({
+            dropdownParent: $('#edit-language-modal')
         });
         $(document).on('select2:open', () => {
             document.querySelector('.select2-search__field').focus();
