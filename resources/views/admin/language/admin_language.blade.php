@@ -24,6 +24,59 @@
     </style>
 @endpush
 @section('content')
+    {{-- Edit String Modal Start --}}
+
+    <div class="modal fade" id="edit-string-modal" tabindex="-1" aria-labelledby="bs-example-modal-lg" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header d-flex align-items-center" style="border-bottom:1px dashed gray">
+                    <h4 class="modal-title" id="myLargeModalLabel">
+                        {{ __('Edit String') }}
+                    </h4>
+                    <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <p class="px-3 text-danger"><i>{{ __('The field labels marked with * are required input fields.') }}</i>
+                </p>
+                <div class="modal-body" style="margin-top: -20px">
+                    <form action="" id="edit_string_form">
+                        @csrf
+                        <input type="hidden" id="lang_code" name="lang_code" value="">
+                        <input type="hidden" id="file_name" name="file_name" value="">
+                        <input type="hidden" id="trid" name="trid" value="">
+                        <div class="row">
+                            <div class="col-lg-12 mt-2">
+                                <label for="string"><strong>{{ __('String') }} *</strong></label>
+                                <input type="text" class="form-control" name="string" id="string" readonly>
+                                <span class="text-danger err-mgs"></span>
+                            </div>
+                            <div class="col-lg-12 mt-2">
+                                <label for="translation"><strong>{{ __('Translation') }} *</strong></label>
+                                <textarea rows="5" class="form-control" name="translation" id="translation"></textarea>
+                                <span class="text-danger err-mgs"></span>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4 mb-2">
+                            <div class="form-group col-lg-12">
+
+                                <button class="btn btn-danger text-white font-weight-medium waves-effect text-start"
+                                    data-bs-dismiss="modal" style="float: right" type="button">{{ __('Close') }}</button>
+                                <button class="btn btn-primary mx-2" style="float: right"
+                                    type="submit">{{ __('Submit') }}</button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    {{-- Edit String Modal End --}}
+
     <div class="container-fluid">
         <div class="page-title">
             <div class="row">
@@ -54,7 +107,8 @@
                     <div class="card-body">
                         <ul class="nav nav-tabs nav-primary" id="pills-warningtab" role="tablist">
                             @foreach ($languages as $language)
-                                <li class="nav-item"><a class="nav-link {{ $language->lang == getLanguageSession() ? 'active' : '' }}"
+                                <li class="nav-item"><a
+                                        class="nav-link {{ $language->lang == getLanguageSession() ? 'active' : '' }}"
                                         id="{{ $language->name }}-tab" data-bs-toggle="pill" href="#{{ $language->name }}"
                                         role="tab" aria-controls="{{ $language->name }}"
                                         aria-selected="true">{{ $language->name }}</a></li>
@@ -70,109 +124,54 @@
                         <div class="tab-content" id="pills-warningtabContent">
                             @foreach ($languages as $language)
                                 <div class="tab-pane fade show {{ $language->lang == getLanguageSession() ? 'active' : '' }}"
-                                    id="{{ $language->name }}" role="tabpanel" aria-labelledby="{{ $language->name }}-tab">
+                                    id="{{ $language->name }}" role="tabpanel"
+                                    aria-labelledby="{{ $language->name }}-tab">
+                                    <form method="POST" action="{{ route('language.adminLocalizationString') }}">
+                                        @csrf
+                                        <input type="hidden" value="{{ resource_path('views') }}" name="directory">
+                                        <input type="hidden" value="admin_local" name="file_name">
+                                        <input type="hidden" value="{{ $language->lang }}" name="lang">
+                                        <button type="submit" class="btn btn-success m-t-30">Generate String</button>
+                                        <a class="btn btn-dark mx-3 m-t-30">Translate String</a>
+                                    </form>
 
-                                    <a class="btn btn-success m-t-30">Generate String</a>
-                                    <a class="btn btn-dark mx-3 m-t-30">Translate String</a>
+
 
                                     <div class="table-responsive theme-scrollbar mb-0 m-t-30">
                                         <table class="display table-bordered dataTable">
                                             <thead>
                                                 <tr>
-                                                    <th>{{ __('Language') }}</th>
-                                                    <th>{{ __('Slug') }}</th>
-                                                    <th>{{ __('Default') }}</th>
-                                                    <th>{{ __('Status') }}</th>
+                                                    <th>{{ __('String') }}</th>
+                                                    <th>{{ __('Traslation') }}</th>
                                                     <th>{{ __('Action') }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>dsfd</td>
-                                                    <td>sdf</td>
-                                                    <td>sdfsd</td>
-                                                    <td>sdfds</td>
-                                                    <td>fff</td>
-                                                </tr>
-                                                @if ($language->lang=='en')
-                                                <tr>
-                                                    <td>dsfd</td>
-                                                    <td>4</td>
-                                                    <td>1</td>
-                                                    <td>sdfds</td>
-                                                    <td>fff</td>
-                                                </tr>
-                                                @endif
-                                                
+                                                @php
+                                                    $translatedvalue = trans('admin_local', [], $language->lang);
+                                                    // dd($translatedvalue);
+                                                @endphp
+                                                @foreach ($translatedvalue as $key => $value)
+                                                    <tr id="{{ $language->lang.str_replace(' ','_',str_replace('.','',$key)) }}">
+                                                        <td>{{ $key }}</td>
+                                                        <td>{{ $value }}</td>
+                                                        <td class="text-center">
+                                                            <button id="edit_button" data-key="{{ $key }}" data-value="{{ $value }}" data-lang_code="{{ $language->lang }}" data-filename="admin_local" class="btn btn-danger px-2 py-1" data-bs-toggle="modal" style="cursor: pointer;"
+                                                            data-bs-target="#edit-string-modal">
+                                                                <i class="fa fa-pencil-square-o"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+
                                             </tbody>
                                         </table>
                                     </div>
-                                    {{-- <p class="">Lorem Ipsum is simply dummy text of the printing and typesetting
-                                        industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                        when an unknown printer took a galley of type and scrambled it to make a type specimen
-                                        book. It has survived not only five centuries, but also the leap into electronic
-                                        typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
-                                        release of Letraset sheets containing Lorem Ipsum passages, and more recently with
-                                        desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p> --}}
                                 </div>
                             @endforeach
 
                         </div>
-                        {{-- <div class="row mb-3">
-                            <div class="col-md-3">
-                                <button class="btn btn-success" type="btn" data-bs-toggle="modal"
-                                    data-bs-target="#add-language-modal">+ Add Language</button>
-                            </div>
-                        </div>
 
-                        <div class="table-responsive theme-scrollbar">
-                            <table id="basic-1" class="display table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>{{ __('Language') }}</th>
-                                        <th>{{ __('Slug') }}</th>
-                                        <th>{{ __('Default') }}</th>
-                                        <th>{{ __('Status') }}</th>
-                                        <th>{{ __('Action') }}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($languages as $language)
-                                        <tr id="tr-{{ $language->id }}" data-id="{{ $language->id }}">
-                                            <td>{{ $language->name }}</td>
-                                            <td>{{ $language->slug }}</td>
-                                            <td>@if ($language->default == 1) <span class="badge badge-success">Yes</span >@else <span class="badge badge-danger">No</span>@endif</td>
-                                            <td class="text-center">
-                                                <span class="mx-2">{{ $language->status==1?'Active':'Inactive' }}</span><input
-                                                    data-status="{{ $language->status == 1 ? 0 : 1 }}"
-                                                    id="status_change" type="checkbox" data-toggle="switchery"
-                                                    data-color="green" data-secondary-color="red" data-size="small"
-                                                    {{ $language->status == 1 ? 'checked' : '' }} />
-                                            </td>
-                                            <td>
-                                                <div class="dropdown">
-                                                    <button
-                                                        class="btn btn-info text-white px-2 py-1 dropbtn">{{ __('Action') }}
-                                                        <i class="fa fa-angle-down"></i></button>
-                                                    <div class="dropdown-content">
-                                                        <a data-bs-toggle="modal" style="cursor: pointer;"
-                                                            data-bs-target="#edit-language-modal" class="text-primary"
-                                                            id="edit_button"><i class=" fa fa-edit mx-1"></i>Edit</a>
-
-                                                        <a class="text-danger" id="delete_button"
-                                                            style="cursor: pointer;"><i class="fa fa-trash mx-1"></i>
-                                                            Delete</a>
-                                                    </div>
-                                                </div>
-
-                                            </td>
-                                        </tr>
-                                    @endforeach
-
-                                </tbody>
-                            </table>
-                            @csrf
-                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -200,11 +199,13 @@
             document.querySelector('.select2-search__field').focus();
         });
         // var oTable = $("#basic-1").DataTable();
-        $('.dataTable').each(function(idx,val){
-            $(this).DataTable();
+        $('.dataTable').each(function(idx, val) {
+            $(this).DataTable({
+                "orderCellsTop": true
+            });
         })
 
         var form_url = "{{ route('language.store') }}";
     </script>
-    <script src="{{ asset('admin/custom/language/language_list.js') }}"></script>
+    <script src="{{ asset('admin/custom/language/admin_localization.js') }}"></script>
 @endpush

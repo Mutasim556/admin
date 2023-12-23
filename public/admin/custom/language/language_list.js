@@ -147,7 +147,7 @@ $(document).on('click', '#edit_button', function () {
             }else{
                 $('#edit_language_form #status').prop('checked',false);
             }
-           
+
         },
         error: function (err) {
             $('#edit_language_form .err-mgs').each(function(id,val){
@@ -256,7 +256,7 @@ $(document).on('click','#delete_button',function(){
                     });
                 }
             });
-           
+
         } else {
             swal("Delete request canceld successfully");
         }

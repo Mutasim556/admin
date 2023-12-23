@@ -45,9 +45,9 @@ Route::middleware('auth')->group(function(){
         Route::get('/update/status/{id}/{status}', 'updateStatus')->name('user_status');
     });
 
-    //doctor section 
+    //doctor section
 
-    //doctor chambers 
+    //doctor chambers
     Route::resource('doctor/chamber',ChamberController::class)->except(['create','show']);
     Route::controller(ChamberController::class)->name('chamber.')->prefix('doctor/chamber')->group(function () {
         Route::get('/update/status/{id}/{status}', 'updateStatus')->name('chamber_status');
@@ -74,6 +74,8 @@ Route::middleware('auth')->group(function(){
     /** Admin Localiztion */
     Route::controller(LocalizationController::class)->prefix('language')->name('language.')->group(function(){
         Route::get('/admin-language','adminLanguage')->name('admin_language');
+        Route::post('/generate-admin-localization-string','generateAdminLocalizationString')->name('adminLocalizationString');
+        Route::post('/update-admin-localization-string','updateAdminLocalizationString')->name('adminLocalizationStringUpdate');
     });
 
     /** Change Admin Language */
