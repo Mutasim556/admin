@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @push('title')
-    {{ __('Admin Language') }}
+    {{ __('admin_local.Admin Language') }}
 @endpush
 @push('css')
     <link rel="stylesheet" href="{{ asset('admin/assets/css/custom.css') }}">
@@ -31,11 +31,11 @@
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center" style="border-bottom:1px dashed gray">
                     <h4 class="modal-title" id="myLargeModalLabel">
-                        {{ __('Edit String') }}
+                        {{ __('admin_local.Edit String') }}
                     </h4>
                     <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <p class="px-3 text-danger"><i>{{ __('The field labels marked with * are required input fields.') }}</i>
+                <p class="px-3 text-danger"><i>{{ __('admin_local.The field labels marked with * are required input fields.') }}</i>
                 </p>
                 <div class="modal-body" style="margin-top: -20px">
                     <form action="" id="edit_string_form">
@@ -45,12 +45,12 @@
                         <input type="hidden" id="trid" name="trid" value="">
                         <div class="row">
                             <div class="col-lg-12 mt-2">
-                                <label for="string"><strong>{{ __('String') }} *</strong></label>
+                                <label for="string"><strong>{{ __('admin_local.String') }} *</strong></label>
                                 <input type="text" class="form-control" name="string" id="string" readonly>
                                 <span class="text-danger err-mgs"></span>
                             </div>
                             <div class="col-lg-12 mt-2">
-                                <label for="translation"><strong>{{ __('Translation') }} *</strong></label>
+                                <label for="translation"><strong>{{ __('admin_local.Translation') }} *</strong></label>
                                 <textarea rows="5" class="form-control" name="translation" id="translation"></textarea>
                                 <span class="text-danger err-mgs"></span>
                             </div>
@@ -60,9 +60,9 @@
                             <div class="form-group col-lg-12">
 
                                 <button class="btn btn-danger text-white font-weight-medium waves-effect text-start"
-                                    data-bs-dismiss="modal" style="float: right" type="button">{{ __('Close') }}</button>
+                                    data-bs-dismiss="modal" style="float: right" type="button">{{ __('admin_local.Close') }}</button>
                                 <button class="btn btn-primary mx-2" style="float: right"
-                                    type="submit">{{ __('Submit') }}</button>
+                                    type="submit">{{ __('admin_local.Submit') }}</button>
                             </div>
 
                         </div>
@@ -81,14 +81,14 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-sm-6">
-                    <h3>{{ __('Admin Language') }}</h3>
+                    <h3>{{ __('admin_local.Admin Language') }}</h3>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="javascript:void(0)">{{ __('Language') }}</a>
+                            <a href="javascript:void(0)">{{ __('admin_local.Language') }}</a>
                         </li>
-                        <li class="breadcrumb-item active">{{ __('Admin Language') }}</li>
+                        <li class="breadcrumb-item active">{{ __('admin_local.Admin Language') }}</li>
                     </ol>
                 </div>
             </div>
@@ -101,7 +101,7 @@
             <div class="col-lg-12 mx-auto">
                 <div class="card">
                     <div class="card-header py-3" style="border-bottom: 2px dashed gray">
-                        <h3 class="card-title mb-0 text-center">{{ __('Admin Language') }}</h3>
+                        <h3 class="card-title mb-0 text-center">{{ __('admin_local.Admin Language') }}</h3>
                     </div>
 
                     <div class="card-body">
@@ -126,14 +126,27 @@
                                 <div class="tab-pane fade show {{ $language->lang == getLanguageSession() ? 'active' : '' }}"
                                     id="{{ $language->name }}" role="tabpanel"
                                     aria-labelledby="{{ $language->name }}-tab">
-                                    <form method="POST" action="{{ route('language.adminLocalizationString') }}">
-                                        @csrf
-                                        <input type="hidden" value="{{ resource_path('views') }}" name="directory">
-                                        <input type="hidden" value="admin_local" name="file_name">
-                                        <input type="hidden" value="{{ $language->lang }}" name="lang">
-                                        <button type="submit" class="btn btn-success m-t-30">Generate String</button>
-                                        <a class="btn btn-dark mx-3 m-t-30">Translate String</a>
-                                    </form>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <form method="POST" action="{{ route('language.adminLocalizationString') }}">
+                                                @csrf
+                                                <input type="hidden" value="{{ resource_path('views') }},{{ app_path('Http/Controllers/Admin') }}" name="directory">
+                                                <input type="hidden" value="admin_local" name="file_name">
+                                                <input type="hidden" value="{{ $language->lang }}" name="lang">
+                                                <button type="submit" class="btn btn-success m-t-30"> {{ __('admin_local.Generate String')}}</button>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <form method="POST" action="{{ route('language.adminLocalizationStringTranslate') }}">
+                                                @csrf
+                                                <input type="hidden" value="{{ resource_path('views') }}" name="directory">
+                                                <input type="hidden" value="admin_local" name="file_name">
+                                                <input type="hidden" value="{{ $language->lang }}" name="lang">
+                                                <button type="submit" class="btn btn-dark m-t-30"> {{ __('admin_local.Translate String')}}</button>
+                                            </form>
+                                        </div>
+                                    </div>
+
 
 
 
@@ -141,9 +154,9 @@
                                         <table class="display table-bordered dataTable">
                                             <thead>
                                                 <tr>
-                                                    <th>{{ __('String') }}</th>
-                                                    <th>{{ __('Traslation') }}</th>
-                                                    <th>{{ __('Action') }}</th>
+                                                    <th>{{ __('admin_local.String') }}</th>
+                                                    <th>{{ __('admin_local.Traslation') }}</th>
+                                                    <th>{{ __('admin_local.Action') }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

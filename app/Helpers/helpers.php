@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\App;
 
 function getLanguageSession() : string {
     if(session()->has('language')){
-        // App::setLocale(session()->get('language'));
         return session()->get('language');
     }else{
         try {
@@ -21,5 +20,4 @@ function getLanguageSession() : string {
 
 function setLanguage(string $code) : void{
     session(['language'=>$code]);
-    // App::setLocale(session()->get('language'));
 }

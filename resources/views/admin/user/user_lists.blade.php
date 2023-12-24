@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @push('title')
-    {{ __('User List') }}
+    {{ __('admin_local.User List') }}
 @endpush
 @push('css')
     <link rel="stylesheet" href="{{ asset('admin/assets/css/custom.css') }}">
@@ -28,14 +28,14 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-sm-6">
-                    <h3>{{ __('User List') }}</h3>
+                    <h3>{{ __('admin_local.User List') }}</h3>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="javascript:void(0)">{{ __('User') }}</a>
+                            <a href="javascript:void(0)">{{ __('admin_local.User') }}</a>
                         </li>
-                        <li class="breadcrumb-item active">{{ __('User List') }}</li>
+                        <li class="breadcrumb-item active">{{ __('admin_local.User List') }}</li>
                     </ol>
                 </div>
             </div>
@@ -49,33 +49,33 @@
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center" style="border-bottom:1px dashed gray">
                     <h4 class="modal-title" id="myLargeModalLabel">
-                        {{ __('Add User') }}
+                        {{ __('admin_local.Add User') }}
                     </h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <p class="px-3 text-danger"><i>{{ __('The field labels marked with * are required input fields.') }}</i>
+                <p class="px-3 text-danger"><i>{{ __('admin_local.The field labels marked with * are required input fields.') }}</i>
                 </p>
                 <div class="modal-body" style="margin-top: -20px">
                     <form action="" id="add_user_form">
                         @csrf
                         <div class="row">
                             <div class="col-lg-6 mt-2">
-                                <label for="user_name"><strong>{{ __('Full Name') }} *</strong></label>
+                                <label for="user_name"><strong>{{ __('admin_local.Full Name') }} *</strong></label>
                                 <input type="text" class="form-control" name="user_name" id="user_name">
                             </div>
                             <div class="col-lg-6 mt-2">
-                                <label for="username"><strong>{{ __('User Name') }} *</strong></label>
+                                <label for="username"><strong>{{ __('admin_local.User Name') }} *</strong></label>
                                 <input type="text" class="form-control" name="username" id="username">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6 mt-2">
-                                <label for="user_password"><strong>{{ __('Password') }} *</strong></label>
+                                <label for="user_password"><strong>{{ __('admin_local.Password') }} *</strong></label>
                                 <input type="password" class="form-control" name="user_password" id="user_password">
                             </div>
                             <div class="col-lg-6 mt-2">
-                                <label for="user_role"><strong>{{ __('Role') }} *</strong></label>
+                                <label for="user_role"><strong>{{ __('admin_local.Role') }} *</strong></label>
                                 <select class="form-control" name="user_role" id="user_role">
                                     <option value="">Select Please</option>
                                     <option value="1">Admin</option>
@@ -86,11 +86,11 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6 mt-2">
-                                <label for="user_email"><strong>{{ __('Email') }} *</strong></label>
+                                <label for="user_email"><strong>{{ __('admin_local.Email') }} *</strong></label>
                                 <input type="email" class="form-control" name="user_email" id="user_email">
                             </div>
                             <div class="col-lg-6 mt-2">
-                                <label for="user_phone"><strong>{{ __('Phone') }} *</strong></label>
+                                <label for="user_phone"><strong>{{ __('admin_local.Phone') }} *</strong></label>
                                 <input type="text" class="form-control" name="user_phone" id="user_phone">
                             </div>
                         </div>
@@ -99,9 +99,9 @@
 
                                 <button class="btn btn-danger text-white font-weight-medium waves-effect text-start"
                                     data-bs-dismiss="modal" style="float: right"
-                                    type="button">{{ __('Close') }}</button>
+                                    type="button">{{ __('admin_local.Close') }}</button>
                                 <button class="btn btn-primary mx-2" style="float: right"
-                                    type="submit">{{ __('Submit') }}</button>
+                                    type="submit">{{ __('admin_local.Submit') }}</button>
                             </div>
 
                         </div>
@@ -123,11 +123,11 @@
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center" style="border-bottom:1px dashed gray">
                     <h4 class="modal-title" id="myLargeModalLabel">
-                        {{ __('Edit User') }}
+                        {{ __('admin_local.Edit User') }}
                     </h4>
                     <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <p class="px-3 text-danger"><i>{{ __('The field labels marked with * are required input fields.') }}</i>
+                <p class="px-3 text-danger"><i>{{ __('admin_local.The field labels marked with * are required input fields.') }}</i>
                 </p>
                 <div class="modal-body" style="margin-top: -20px">
                     <form action="" id="edit_user_form">
@@ -135,21 +135,21 @@
                         <input type="hidden" id="user_id" name="user_id" value="">
                         <div class="row">
                             <div class="col-lg-6 mt-2">
-                                <label for="user_name"><strong>{{ __('Full Name') }} *</strong></label>
+                                <label for="user_name"><strong>{{ __('admin_local.Full Name') }} *</strong></label>
                                 <input type="text" class="form-control" name="user_name" id="user_name">
                             </div>
                             <div class="col-lg-6 mt-2">
-                                <label for="username"><strong>{{ __('Username') }} *</strong></label>
+                                <label for="username"><strong>{{ __('admin_local.Username') }} *</strong></label>
                                 <input type="text" class="form-control" name="username" id="username">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6 mt-2">
-                                <label for="user_password"><strong>{{ __('Password') }} *</strong></label>
+                                <label for="user_password"><strong>{{ __('admin_local.Password') }} *</strong></label>
                                 <input type="password" class="form-control" name="user_password" id="user_password">
                             </div>
                             <div class="col-lg-6 mt-2">
-                                <label for="user_role"><strong>{{ __('Role') }} *</strong></label>
+                                <label for="user_role"><strong>{{ __('admin_local.Role') }} *</strong></label>
                                 <select class="form-control" name="user_role" id="user_role">
                                     <option value="">Select Please</option>
                                     <option value="1">Admin</option>
@@ -160,11 +160,11 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6 mt-2">
-                                <label for="user_email"><strong>{{ __('Email') }} *</strong></label>
+                                <label for="user_email"><strong>{{ __('admin_local.Email') }} *</strong></label>
                                 <input type="email" class="form-control" name="user_email" id="user_email">
                             </div>
                             <div class="col-lg-6 mt-2">
-                                <label for="user_phone"><strong>{{ __('Phone') }} *</strong></label>
+                                <label for="user_phone"><strong>{{ __('admin_local.Phone') }} *</strong></label>
                                 <input type="text" class="form-control" name="user_phone" id="user_phone">
                             </div>
                         </div>
@@ -173,9 +173,9 @@
 
                                 <button class="btn btn-danger text-white font-weight-medium waves-effect text-start"
                                     data-bs-dismiss="modal" style="float: right"
-                                    type="button">{{ __('Close') }}</button>
+                                    type="button">{{ __('admin_local.Close') }}</button>
                                 <button class="btn btn-primary mx-2" style="float: right"
-                                    type="submit">{{ __('Submit') }}</button>
+                                    type="submit">{{ __('admin_local.Submit') }}</button>
                             </div>
 
                         </div>
@@ -198,7 +198,7 @@
             <div class="col-lg-11 mx-auto">
                 <div class="card">
                     <div class="card-header py-3" style="border-bottom: 2px dashed gray">
-                        <h3 class="card-title mb-0 text-center">{{ __('User List') }}</h3>
+                        <h3 class="card-title mb-0 text-center">{{ __('admin_local.User List') }}</h3>
                     </div>
 
                     <div class="card-body">
@@ -213,13 +213,13 @@
                             <table id="basic-1" class="display table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>{{ __('Full Name') }}</th>
-                                        <th>{{ __('Email') }}</th>
-                                        <th>{{ __('Phone') }}</th>
-                                        <th>{{ __('User Name') }}</th>
-                                        <th>{{ __('Role') }}</th>
-                                        <th>{{ __('Status') }}</th>
-                                        <th>{{ __('Action') }}</th>
+                                        <th>{{ __('admin_local.Full Name') }}</th>
+                                        <th>{{ __('admin_local.Email') }}</th>
+                                        <th>{{ __('admin_local.Phone') }}</th>
+                                        <th>{{ __('admin_local.User Name') }}</th>
+                                        <th>{{ __('admin_local.Role') }}</th>
+                                        <th>{{ __('admin_local.Status') }}</th>
+                                        <th>{{ __('admin_local.Action') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -242,7 +242,7 @@
                                             <td>
                                                 <div class="dropdown {{ $user->id==Auth::user()->id?'d-none':'' }}">
                                                     <button
-                                                        class="btn btn-info text-white px-2 py-1 dropbtn">{{ __('Action') }}
+                                                        class="btn btn-info text-white px-2 py-1 dropbtn">{{ __('admin_local.Action') }}
                                                         <i class="fa fa-angle-down"></i></button>
                                                     <div class="dropdown-content">
                                                         <a data-bs-toggle="modal" style="cursor: pointer;"

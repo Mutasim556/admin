@@ -76,6 +76,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/admin-language','adminLanguage')->name('admin_language');
         Route::post('/generate-admin-localization-string','generateAdminLocalizationString')->name('adminLocalizationString');
         Route::post('/update-admin-localization-string','updateAdminLocalizationString')->name('adminLocalizationStringUpdate');
+        Route::post('/translate-admin-localization-string','translateAdminLocalizationString')->name('adminLocalizationStringTranslate');
     });
 
     /** Change Admin Language */

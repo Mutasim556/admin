@@ -78,7 +78,7 @@
                         </li>
                         <li class="serchinput">
                             <div class="serchbox"> <a href="" class="btn btn-primary">POS</a></div>
-                           
+
                         </li> --}}
                         <li>
                             <div><a href="" class="btn btn-primary">POS</a></div>
@@ -163,13 +163,12 @@
                             <div class="account-user"><i data-feather="user"></i></div>
                             <ul class="profile-dropdown onhover-show-div">
                                 <li><a href="{{ route('admin.profile') }}"><i
-                                            data-feather="user"></i><span>Account</span></a>
+                                            data-feather="user"></i><span> {{ __('admin_local.Account')}}</span></a>
                                 </li>
-                                <li><a href="email_inbox.html"><i data-feather="mail"></i><span>Inbox</span></a></li>
+                                <li><a href="email_inbox.html"><i data-feather="mail"></i><span> {{ __('admin_local.Inbox')}}</span></a></li>
                                 <li><a href="edit-profile.html"><i
-                                            data-feather="settings"></i><span>Settings</span></a></li>
-                                <li><a href="{{ route('admin.logout') }}"><i data-feather="log-in"> </i><span>Log
-                                            Out</span></a></li>
+                                            data-feather="settings"></i><span> {{ __('admin_local.Settings')}}</span></a></li>
+                                <li><a href="{{ route('admin.logout') }}"><i data-feather="log-in"> </i><span> {{ __('admin_local.LogOut')}}</span></a></li>
                             </ul>
                         </li>
                     </ul>
@@ -265,7 +264,7 @@
                     window.location.reload();
                 },
                 error : function(err){
-                    window.location.reload(); 
+                    window.location.reload();
                 }
             })
         }

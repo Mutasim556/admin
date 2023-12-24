@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @push('title')
-    {{ __('Language List') }}
+    {{ __('admin_local.Language List') }}
 @endpush
 @push('css')
     <link rel="stylesheet" href="{{ asset('admin/assets/css/custom.css') }}">
@@ -21,7 +21,7 @@
             width: 20px;
             height: 10px;
         }
-        
+
     </style>
 @endpush
 @section('content')
@@ -29,14 +29,14 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-sm-6">
-                    <h3>{{ __('language List') }}</h3>
+                    <h3>{{ __('admin_local.language List') }}</h3>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="javascript:void(0)">{{ __('Language') }}</a>
+                            <a href="javascript:void(0)">{{ __('admin_local.Language') }}</a>
                         </li>
-                        <li class="breadcrumb-item active">{{ __('Language List') }}</li>
+                        <li class="breadcrumb-item active">{{ __('admin_local.Language List') }}</li>
                     </ol>
                 </div>
             </div>
@@ -50,57 +50,57 @@
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center" style="border-bottom:1px dashed gray">
                     <h4 class="modal-title" id="myLargeModalLabel">
-                        {{ __('Add Language') }}
+                        {{ __('admin_local.Add Language') }}
                     </h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <p class="px-3 text-danger"><i>{{ __('The field labels marked with * are required input fields.') }}</i>
+                <p class="px-3 text-danger"><i>{{ __('admin_local.The field labels marked with * are required input fields.') }}</i>
                 </p>
                 <div class="modal-body" style="margin-top: -20px">
                     <form action="" id="add_language_form">
                         @csrf
                         <div class="row">
                             <div class="col-lg-12 mt-2">
-                                <label for="language"><strong>{{ __('Language') }} *</strong></label>
+                                <label for="language"><strong>{{ __('admin_local.Language') }} *</strong></label>
                                 <select class="js-example-basic-single" name="language" id="language">
                                     @foreach (config('language') as $key=>$lang)
                                         <option value="{{ $key }}" {{ $key=='en'?'selected':'' }}>{{ $lang['name'] }}</option>
                                     @endforeach
-                                    
+
                                 </select>
                                 <span class="text-danger err-mgs"></span>
                             </div>
                             <div class="col-lg-6 mt-2">
-                                <label for="name"><strong>{{ __('Name') }} *</strong></label>
+                                <label for="name"><strong>{{ __('admin_local.Name') }} *</strong></label>
                                 <input type="text" class="form-control" name="name" id="name">
                                 <span class="text-danger err-mgs"></span>
                             </div>
                             <div class="col-lg-6 mt-2">
-                                <label for="slug"><strong>{{ __('Slug') }} *</strong></label>
+                                <label for="slug"><strong>{{ __('admin_local.Slug') }} *</strong></label>
                                 <input type="text" class="form-control" name="slug" id="slug" readonly>
                                 <span class="text-danger err-mgs"></span>
                             </div>
                             <div class="col-lg-6 mt-4">
                                 <input type="checkbox" name="default">&nbsp;&nbsp;
-                                <label for="default"><strong> {{ __('Is it default ?') }}</strong></label>
+                                <label for="default"><strong> {{ __('admin_local.Is it default ?') }}</strong></label>
                                 <span class="text-danger err-mgs"></span>
                             </div>
                             <div class="col-lg-6 mt-4">
                                 <input type="checkbox" name="status"> &nbsp;&nbsp;
-                                <label for="status"><strong> {{ __('Is it active ?') }} </strong></label>
+                                <label for="status"><strong> {{ __('admin_local.Is it active ?') }} </strong></label>
                                 <span class="text-danger err-mgs"></span>
                             </div>
                         </div>
-                        
+
                         <div class="row mt-4 mb-2">
                             <div class="form-group col-lg-12">
 
                                 <button class="btn btn-danger text-white font-weight-medium waves-effect text-start"
                                     data-bs-dismiss="modal" style="float: right"
-                                    type="button">{{ __('Close') }}</button>
+                                    type="button">{{ __('admin_local.Close') }}</button>
                                 <button class="btn btn-primary mx-2" style="float: right"
-                                    type="submit">{{ __('Submit') }}</button>
+                                    type="submit">{{ __('admin_local.Submit') }}</button>
                             </div>
 
                         </div>
@@ -122,11 +122,11 @@
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center" style="border-bottom:1px dashed gray">
                     <h4 class="modal-title" id="myLargeModalLabel">
-                        {{ __('Edit Language') }}
+                        {{ __('admin_local.Edit Language') }}
                     </h4>
                     <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <p class="px-3 text-danger"><i>{{ __('The field labels marked with * are required input fields.') }}</i>
+                <p class="px-3 text-danger"><i>{{ __('admin_local.The field labels marked with * are required input fields.') }}</i>
                 </p>
                 <div class="modal-body" style="margin-top: -20px">
                     <form action="" id="edit_language_form">
@@ -134,45 +134,45 @@
                         <input type="hidden" id="language_id" name="language_id" value="">
                         <div class="row">
                             <div class="col-lg-12 mt-2">
-                                <label for="language"><strong>{{ __('Language') }} *</strong></label>
+                                <label for="language"><strong>{{ __('admin_local.Language') }} *</strong></label>
                                 <select class="js-example-basic-single1" name="language" id="language">
                                     @foreach (config('language') as $key=>$lang)
                                         <option value="{{ $key }}">{{ $lang['name'] }}</option>
                                     @endforeach
-                                    
+
                                 </select>
                                 <span class="text-danger err-mgs"></span>
                             </div>
                             <div class="col-lg-6 mt-2">
-                                <label for="name"><strong>{{ __('Name') }} *</strong></label>
+                                <label for="name"><strong>{{ __('admin_local.Name') }} *</strong></label>
                                 <input type="text" class="form-control" name="name" id="name">
                                 <span class="text-danger err-mgs"></span>
                             </div>
                             <div class="col-lg-6 mt-2">
-                                <label for="slug"><strong>{{ __('Slug') }} *</strong></label>
+                                <label for="slug"><strong>{{ __('admin_local.Slug') }} *</strong></label>
                                 <input type="text" class="form-control" name="slug" id="slug" readonly>
                                 <span class="text-danger err-mgs"></span>
                             </div>
                             <div class="col-lg-6 mt-4">
                                 <input type="checkbox" name="default" id="default" >&nbsp;&nbsp;
-                                <label for="default"><strong> {{ __('Is it default ?') }}</strong></label>
+                                <label for="default"><strong> {{ __('admin_local.Is it default ?') }}</strong></label>
                                 <span class="text-danger err-mgs"></span>
                             </div>
                             <div class="col-lg-6 mt-4">
                                 <input type="checkbox" name="status" id="status"> &nbsp;&nbsp;
-                                <label for="status"><strong> {{ __('Is it active ?') }} </strong></label>
+                                <label for="status"><strong> {{ __('admin_local.Is it active ?') }} </strong></label>
                                 <span class="text-danger err-mgs"></span>
                             </div>
                         </div>
-                        
+
                         <div class="row mt-4 mb-2">
                             <div class="form-group col-lg-12">
 
                                 <button class="btn btn-danger text-white font-weight-medium waves-effect text-start"
                                     data-bs-dismiss="modal" style="float: right"
-                                    type="button">{{ __('Close') }}</button>
+                                    type="button">{{ __('admin_local.Close') }}</button>
                                 <button class="btn btn-primary mx-2" style="float: right"
-                                    type="submit">{{ __('Submit') }}</button>
+                                    type="submit">{{ __('admin_local.Submit') }}</button>
                             </div>
 
                         </div>
@@ -195,14 +195,14 @@
             <div class="col-lg-11 mx-auto">
                 <div class="card">
                     <div class="card-header py-3" style="border-bottom: 2px dashed gray">
-                        <h3 class="card-title mb-0 text-center">{{ __('Language List') }}</h3>
+                        <h3 class="card-title mb-0 text-center">{{ __('admin_local.Language List') }}</h3>
                     </div>
 
                     <div class="card-body">
                         <div class="row mb-3">
                             <div class="col-md-3">
                                 <button class="btn btn-success" type="btn" data-bs-toggle="modal"
-                                    data-bs-target="#add-language-modal">+ Add Language</button>
+                                    data-bs-target="#add-language-modal">+  {{ __('admin_local.Add Language')}}</button>
                             </div>
                         </div>
 
@@ -210,11 +210,11 @@
                             <table id="basic-1" class="display table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>{{ __('Language') }}</th>
-                                        <th>{{ __('Slug') }}</th>
-                                        <th>{{ __('Default') }}</th>
-                                        <th>{{ __('Status') }}</th>
-                                        <th>{{ __('Action') }}</th>
+                                        <th>{{ __('admin_local.Language') }}</th>
+                                        <th>{{ __('admin_local.Slug') }}</th>
+                                        <th>{{ __('admin_local.Default') }}</th>
+                                        <th>{{ __('admin_local.Status') }}</th>
+                                        <th>{{ __('admin_local.Action') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -233,16 +233,16 @@
                                             <td>
                                                 <div class="dropdown">
                                                     <button
-                                                        class="btn btn-info text-white px-2 py-1 dropbtn">{{ __('Action') }}
+                                                        class="btn btn-info text-white px-2 py-1 dropbtn">{{ __('admin_local.Action') }}
                                                         <i class="fa fa-angle-down"></i></button>
                                                     <div class="dropdown-content">
                                                         <a data-bs-toggle="modal" style="cursor: pointer;"
                                                             data-bs-target="#edit-language-modal" class="text-primary"
-                                                            id="edit_button"><i class=" fa fa-edit mx-1"></i>Edit</a>
+                                                            id="edit_button"><i class=" fa fa-edit mx-1"></i> {{ __('admin_local.Edit')}}</a>
 
                                                         <a class="text-danger" id="delete_button"
                                                             style="cursor: pointer;"><i class="fa fa-trash mx-1"></i>
-                                                            Delete</a>
+                                                            {{ __('admin_local.Delete') }}</a>
                                                     </div>
                                                 </div>
 
