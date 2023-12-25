@@ -69,4 +69,11 @@
             </li>
         </ul>
     </li>
+
+    <li class="sidebar-list">
+        <a class="sidebar-link sidebar-title link-nav" href="{{ route('role.index') }}"
+            aria-expanded="false"><i data-feather="home"></i><span
+                > {{ __('admin_local.Roles And Permissions') }}</span>
+        </a>
+    </li>
 </ul>

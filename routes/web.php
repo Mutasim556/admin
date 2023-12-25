@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Doctor\SpecialityController;
 use App\Http\Controllers\Admin\Language\LanguageChangeController;
 use App\Http\Controllers\Admin\Language\LanguageController;
 use App\Http\Controllers\Admin\Language\LocalizationController;
+use App\Http\Controllers\Admin\Role\RoleAndPermissionController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -81,5 +82,12 @@ Route::middleware('auth')->group(function(){
 
     /** Change Admin Language */
     Route::get('/change-admin-language/{code}',LanguageChangeController::class);
+
+    /** Admin roles and permission */
+    Route::controller(RoleAndPermissionController::class)->name('role.')->prefix('role')->group(function(){
+        Route::get('/','index')->name('index');
+        Route::get('/create','create')->name('create');
+    });
+
 
 });

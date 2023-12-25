@@ -67,6 +67,7 @@ return array (
   'Default' => 'Default',
   'Edit' => 'Edit',
   'Delete' => 'Delete',
+  'Roles And Permissions' => 'Roles And Permissions',
   'User List' => 'User List',
   'User' => 'User',
   'Add User' => 'Add User',
