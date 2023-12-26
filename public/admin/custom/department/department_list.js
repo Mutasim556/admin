@@ -94,7 +94,7 @@ $(document).on('change','#status_change',function(){
                 icon: "warning",
                 title: "Warning !",
                 text: err_message[0],
-                confirmButtonText: "Ok",
+                confirmButtonText: "Ok", 
             });
         }
     });

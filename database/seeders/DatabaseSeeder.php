@@ -23,5 +23,8 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('admin'),
             'role' =>1 ,
         ]);
+
+        //all custom seeder
+        $this->call(LanguageSeeder::class);
     }
 }

@@ -7,6 +7,7 @@ use App\Models\Doctor\Department;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class DepartmentController extends Controller
 {
@@ -33,7 +34,7 @@ class DepartmentController extends Controller
     public function store(Request $data)
     {
         $data->validate([
-            'department_name'=>'required|unique:departments,department_name|max:300',
+            'department_name'=>['required','max:300',Rule::unique('departments')->where(fn($query)=>$query->where('department_delete',0))],
             'department_status'=>'required'
         ]);
 

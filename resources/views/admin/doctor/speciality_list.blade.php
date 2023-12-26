@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @push('title')
-    {{ __('Speciality List') }}
+    {{ __('admin_local.Speciality List') }}
 @endpush
 @push('css')
     <link rel="stylesheet" href="{{ asset('admin/assets/css/custom.css') }}">
@@ -21,7 +21,7 @@
             width: 20px;
             height: 10px;
         }
-        
+
     </style>
 @endpush
 @section('content')
@@ -29,14 +29,14 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-sm-6">
-                    <h3>{{ __('speciality List') }}</h3>
+                    <h3>{{ __('admin_local.speciality List') }}</h3>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="javascript:void(0)">{{ __('Speciality') }}</a>
+                            <a href="javascript:void(0)">{{ __('admin_local.Speciality') }}</a>
                         </li>
-                        <li class="breadcrumb-item active">{{ __('Speciality List') }}</li>
+                        <li class="breadcrumb-item active">{{ __('admin_local.Speciality List') }}</li>
                     </ol>
                 </div>
             </div>
@@ -50,24 +50,24 @@
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center" style="border-bottom:1px dashed gray">
                     <h4 class="modal-title" id="myLargeModalLabel">
-                        {{ __('Add Speciality') }}
+                        {{ __('admin_local.Add Speciality') }}
                     </h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <p class="px-3 text-danger"><i>{{ __('The field labels marked with * are required input fields.') }}</i>
+                <p class="px-3 text-danger"><i>{{ __('admin_local.The field labels marked with * are required input fields.') }}</i>
                 </p>
                 <div class="modal-body" style="margin-top: -20px">
                     <form action="" id="add_speciality_form">
                         @csrf
                         <div class="row">
                             <div class="col-lg-12 mt-2">
-                                <label for="speciality"><strong>{{ __('Speciality') }} *</strong></label>
+                                <label for="speciality"><strong>{{ __('admin_local.Speciality') }} *</strong></label>
                                 <input type="text" class="form-control" name="speciality" id="speciality">
                                 <span class="text-danger err-mgs"></span>
                             </div>
                             <div class="col-lg-12 mt-2">
-                                <label for="speciality_status"><strong>{{ __('Speciality Status') }} *</strong></label>
+                                <label for="speciality_status"><strong>{{ __('admin_local.Speciality Status') }} *</strong></label>
                                 <select name="speciality_status" id="speciality_status" class="form-control">
                                     <option value="Active" selected>Active</option>
                                     <option value="Inactive">Inactive</option>
@@ -75,15 +75,15 @@
                                 <span class="text-danger err-mgs"></span>
                             </div>
                         </div>
-                        
+
                         <div class="row mt-4 mb-2">
                             <div class="form-group col-lg-12">
 
                                 <button class="btn btn-danger text-white font-weight-medium waves-effect text-start"
                                     data-bs-dismiss="modal" style="float: right"
-                                    type="button">{{ __('Close') }}</button>
+                                    type="button">{{ __('admin_local.Close') }}</button>
                                 <button class="btn btn-primary mx-2" style="float: right"
-                                    type="submit">{{ __('Submit') }}</button>
+                                    type="submit">{{ __('admin_local.Submit') }}</button>
                             </div>
 
                         </div>
@@ -105,11 +105,11 @@
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center" style="border-bottom:1px dashed gray">
                     <h4 class="modal-title" id="myLargeModalLabel">
-                        {{ __('Edit speciality') }}
+                        {{ __('admin_local.Edit speciality') }}
                     </h4>
                     <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <p class="px-3 text-danger"><i>{{ __('The field labels marked with * are required input fields.') }}</i>
+                <p class="px-3 text-danger"><i>{{ __('admin_local.The field labels marked with * are required input fields.') }}</i>
                 </p>
                 <div class="modal-body" style="margin-top: -20px">
                     <form action="" id="edit_speciality_form">
@@ -117,20 +117,20 @@
                         <input type="hidden" id="speciality_id" name="speciality_id" value="">
                         <div class="row">
                             <div class="col-lg-12 mt-2">
-                                <label for="speciality"><strong>{{ __('Speciality') }} *</strong></label>
+                                <label for="speciality"><strong>{{ __('admin_local.Speciality') }} *</strong></label>
                                 <input type="text" class="form-control" name="speciality" id="speciality">
                                 <span class="text-danger err-mgs"></span>
                             </div>
                         </div>
-                        
+
                         <div class="row mt-4 mb-2">
                             <div class="form-group col-lg-12">
 
                                 <button class="btn btn-danger text-white font-weight-medium waves-effect text-start"
                                     data-bs-dismiss="modal" style="float: right"
-                                    type="button">{{ __('Close') }}</button>
+                                    type="button">{{ __('admin_local.Close') }}</button>
                                 <button class="btn btn-primary mx-2" style="float: right"
-                                    type="submit">{{ __('Submit') }}</button>
+                                    type="submit">{{ __('admin_local.Submit') }}</button>
                             </div>
 
                         </div>
@@ -153,7 +153,7 @@
             <div class="col-lg-11 mx-auto">
                 <div class="card">
                     <div class="card-header py-3" style="border-bottom: 2px dashed gray">
-                        <h3 class="card-title mb-0 text-center">{{ __('speciality List') }}</h3>
+                        <h3 class="card-title mb-0 text-center">{{ __('admin_local.speciality List') }}</h3>
                     </div>
 
                     <div class="card-body">
@@ -168,9 +168,9 @@
                             <table id="basic-1" class="display table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>{{ __('Speciality Name') }}</th>
-                                        <th>{{ __('Status') }}</th>
-                                        <th>{{ __('Action') }}</th>
+                                        <th>{{ __('admin_local.Speciality Name') }}</th>
+                                        <th>{{ __('admin_local.Status') }}</th>
+                                        <th>{{ __('admin_local.Action') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -187,7 +187,7 @@
                                             <td>
                                                 <div class="dropdown">
                                                     <button
-                                                        class="btn btn-info text-white px-2 py-1 dropbtn">{{ __('Action') }}
+                                                        class="btn btn-info text-white px-2 py-1 dropbtn">{{ __('admin_local.Action') }}
                                                         <i class="fa fa-angle-down"></i></button>
                                                     <div class="dropdown-content">
                                                         <a data-bs-toggle="modal" style="cursor: pointer;"

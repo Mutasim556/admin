@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @push('title')
-    {{ __('Dashboard') }}
+    {{ __('admin_local.Dashboard') }}
 @endpush
 @section('content')
 

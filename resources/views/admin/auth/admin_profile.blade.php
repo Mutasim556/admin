@@ -1,12 +1,12 @@
 @extends('layouts.admin')
 @push('title')
-    {{ __('Admin Profile') }}
+    {{ __('admin_local.Admin Profile') }}
 @endpush
 @push('css')
     <link rel="stylesheet" href="{{ asset('admin/assets/css/custom.css') }}">
 @endpush
 @push('page_css')
-    
+
     <style>
         .loader-box {
             height: auto;
@@ -30,12 +30,12 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-sm-6">
-                    <h3>My Profile</h3>
+                    <h3>{{ __('admin_local.My Profile') }}</h3>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html"><i data-feather="user"></i></a></li>
-                        <li class="breadcrumb-item">My Profile</li>
+                        <li class="breadcrumb-item">{{ __('admin_local.My Profile') }}</li>
                     </ol>
                 </div>
             </div>
@@ -47,7 +47,7 @@
             <div class="col-sm-5 mx-auto">
                 <div class="card">
                     <div class="card-header pb-0">
-                        <h4 class="text-center">Profile Details</h4>
+                        <h4 class="text-center">{{ __('admin_local.Profile Details') }}</h4>
                         <h4 style="text-align: right"><i data-toggle="tooltip" data-placement="bottom"
                                 title="Edit basic info." class="fa fa-edit float-right" id="trigger_user_basic_edit"
                                 style="font-size:21px;cursor:pointer"></i></h4>
@@ -55,7 +55,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-4">
-                                <label for=""><strong>Name</strong></label>
+                                <label for=""><strong>{{ __('admin_local.Name') }}</strong></label>
                             </div>
                             <div class="col-lg-8">
                                 <span for="">{{ $profile_info->name }}</span>
@@ -63,7 +63,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-4">
-                                <label for="" class="lebelcolor"><strong>Email</strong></label>
+                                <label for="" class="lebelcolor"><strong>{{ __('admin_local.Email') }}</strong></label>
                             </div>
                             <div class="col-lg-8">
                                 <label for="">{{ $profile_info->email }}</label>
@@ -71,7 +71,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-4">
-                                <label for="" class="lebelcolor"><strong>Phone</strong></label>
+                                <label for="" class="lebelcolor"><strong>{{ __('admin_local.Phone') }}</strong></label>
                             </div>
                             <div class="col-lg-8">
                                 <label for="">{{ $profile_info->phone }}</label>
@@ -79,7 +79,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-4">
-                                <label for="" class="lebelcolor"><strong>Username</strong></label>
+                                <label for="" class="lebelcolor"><strong>{{ __('admin_local.Username') }}</strong></label>
                             </div>
                             <div class="col-lg-8">
                                 <label for="">{{ $profile_info->username }}</label>
@@ -87,7 +87,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-4">
-                                <label for="" class="lebelcolor"><strong>My role</strong></label>
+                                <label for="" class="lebelcolor"><strong>{{ __('admin_local.My role') }}</strong></label>
                             </div>
                             <div class="col-lg-8">
                                 <label
@@ -100,7 +100,7 @@
                             @csrf
                             <div class="row">
                                 <div class="col-lg-4">
-                                    <label for="" class="lebelcolor"><strong>Name</strong></label>
+                                    <label for="" class="lebelcolor"><strong>{{ __('admin_local.Name') }}</strong></label>
                                 </div>
                                 <div class="col-lg-8">
                                     <input type="text" class="form-control" value="{{ $profile_info->name }}"
@@ -110,7 +110,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-4">
-                                    <label for="" class="lebelcolor"><strong>Email</strong></label>
+                                    <label for="" class="lebelcolor"><strong>{{ __('admin_local.Email') }}</strong></label>
                                 </div>
                                 <div class="col-lg-8">
                                     <input type="text" class="form-control" value="{{ $profile_info->email }}"
@@ -120,7 +120,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-4">
-                                    <label for="" class="lebelcolor"><strong>Phone</strong></label>
+                                    <label for="" class="lebelcolor"><strong>{{ __('admin_local.Phone') }}</strong></label>
                                 </div>
                                 <div class="col-lg-8">
                                     <input type="text" class="form-control" value="{{ $profile_info->phone }}"
@@ -130,7 +130,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-4">
-                                    <label for="" class="lebelcolor"><strong>Username</strong></label>
+                                    <label for="" class="lebelcolor"><strong>{{ _('Username') }}</strong></label>
                                 </div>
                                 <div class="col-lg-8">
                                     <input type="text" class="form-control" value="{{ $profile_info->username }}"
@@ -141,7 +141,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <button type="submit" id="update_basic_info_button"
-                                        class="btn btn-info form-control">Update Profile Info</button>
+                                        class="btn btn-info form-control">{{ __('admin_local.Update Profile Info') }}</button>
                                 </div>
                             </div>
 
@@ -163,7 +163,7 @@
                             @csrf
                             <div class="row">
                                 <div class="form-group col-md-4 py-0 my-0 ">
-                                    <label for="" class="lebelcolor">Old Password</label>
+                                    <label for="" class="lebelcolor">{{ __('admin_local.Old Password') }}</label>
                                 </div>
                                 <div class="input-group col-md-8 mb-3">
                                     <input type="password" class="form-control" name="old_password" id="old_password"
@@ -177,7 +177,7 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-4 my-0">
-                                    <label for="" class="lebelcolor">New Password</label>
+                                    <label for="" class="lebelcolor">{{ __('admin_local.New Password') }}</label>
                                 </div>
                                 <div class="input-group col-md-8 mb-3">
                                     <input type="password" class="form-control" placeholder="new password"
@@ -190,7 +190,7 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-4 my-0">
-                                    <label for="" class="lebelcolor">Re-type Password</label>
+                                    <label for="" class="lebelcolor">{{ __('admin_local.Re-type Password') }}</label>
                                 </div>
                                 {{-- <div class="form-group col-md-8">
                         <input type="password" class="form-control" name="retype_password">
@@ -207,7 +207,7 @@
                             </div>
 
                             <button type="submit" id="update_password_button"
-                                class="btn btn-success form-control">Change Password</button>
+                                class="btn btn-success form-control">{{ __('admin_local.Change Password') }}</button>
                         </form>
                         <script>
                             function password_status(x, y) {

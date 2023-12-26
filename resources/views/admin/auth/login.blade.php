@@ -15,22 +15,22 @@
                             role="alert">
                             <button type="button" class="btn-close" data-bs-dismiss="alert"
                                 aria-label="Close"></button>
-                            <strong>{{ __('Invalid Email or Password') }}</strong>
+                            <strong>{{ __('admin_local.Invalid Email or Password') }}</strong>
                         </div>
                     @endif
                     <form class="theme-form" method="POST" action="{{ route('admin.login') }}">
                         @csrf
-                        <h4 class="text-center">{{ __('Log In') }}</h4>
+                        <h4 class="text-center">{{ __('admin_local.Log In') }}</h4>
                         {{-- <p class="text-center">Enter your email & password to login</p> --}}
                         <div class="form-group">
-                            <label class="col-form-label"><strong>{{ __('Email / Phone / Username') }}</strong></label>
+                            <label class="col-form-label"><strong>{{ __('admin_local.Email / Phone / Username') }}</strong></label>
                             <input class="form-control" id="user_email" name="user_credential" type="text" placeholder="Enhter Your Email or Phone or Username"  value="{{ old('user_credential') }}"/>
                             @error('user_credential')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label class="col-form-label"><strong>{{ __('User Password') }}</strong></label>
+                            <label class="col-form-label"><strong>{{ __('admin_local.User Password') }}</strong></label>
                             <div class="form-input position-relative">
                                 <input class="form-control" id="user_password" name="user_password" type="password" >
                                 <div class="show-hide"><span class="show"> </span></div>
@@ -47,12 +47,12 @@
                             <div class="d-flex">
                                 <div class="ms-auto">
                                     <a href="javascript:void(0)" id="to-recover" class="link font-weight-medium"><i
-                                        class="fa fa-lock me-1"></i> {{ __('Forgot Password') }} ?</a>
+                                        class="fa fa-lock me-1"></i> {{ __('admin_local.Forgot Password') }} ?</a>
                                 </div>
                             </div>
                             <div class="text-end mt-3">
                                 <button class=" btn btn-info d-block w-100 waves-effect waves-light" type="submit">
-                                    {{ __('Log In') }}
+                                    {{ __('admin_local.Log In') }}
                                 </button>
                             </div>
                         </div>
@@ -61,10 +61,10 @@
                 <div class="login-main" id="recoverform" style="display: none;">
                     <form class="col-12" action="index.html">
                         <!-- email -->
-                        <h4 class="text-center">{{ __('Forget Password') }}</h4>
+                        <h4 class="text-center">{{ __('admin_local.Forget Password') }}</h4>
                         <div class="form-group row">
                             <div class="col-12">
-                                <label for="forget_email">{{ __('User Email') }}</label>
+                                <label for="forget_email">{{ __('admin_local.User Email') }}</label>
                                 <input class="form-control" id="forget_email" type="email" required="" />
                             </div>
                         </div>
@@ -73,14 +73,14 @@
                         <div class="row mt-3">
                             <div class="col-12">
                                 <button class="btn d-block w-100 btn-primary text-uppercase" type="submit" name="action">
-                                    {{ __('Reset') }}
+                                    {{ __('admin_local.Reset') }}
                                 </button>
                             </div>
                             <div class="form-group mt-2">
                                 <div class="d-flex">
                                     <div class="ms-auto">
                                         <a href="javascript:void(0)" id="to-sign-in" class="link font-weight-medium">
-                                            {{ __('Already Have An Account') }} ?</a>
+                                            {{ __('admin_local.Already Have An Account') }} ?</a>
                                     </div>
                                 </div>
                             </div>
