@@ -63,10 +63,15 @@ class UserController extends Controller
             return response([
                 'user'=>$user,
                 'role' => $user->getRoleNames()->first(),
+                'title'=>__('admin_local.Congratulations !'),
+                'text'=>__('admin_local.User created successfully'),
+                'confirmButtonText'=>__('admin_local.Ok'),
             ]);
         }else{
             return response()->json([
-                'message'=>'Something went wrong.',
+                'message'=>__('admin_local.Something went wrong.'),
+                'title'=>__('admin_local.Warning !'),
+                'confirmButtonText'=>__('admin_local.Ok'),
             ],422);
         }
     }
@@ -133,10 +138,14 @@ class UserController extends Controller
             return response([
                 'user'=>$user,
                 'role'=>$role,
+                'role' => $user->getRoleNames()->first(),
+                'title'=>__('admin_local.Congratulations !'),
+                'text'=>__('admin_local.User updated successfully'),
+                'confirmButtonText'=>__('admin_local.Ok'),
             ]);
         }else{
             return response()->json([
-                'message'=>'Something went wrong.',
+                'message'=>__('admin_local.Something went wrong.'),
             ],422);
         }
 
@@ -148,7 +157,12 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         User::where('id',$id)->update(['delete'=>1,'updated_at'=>Carbon::now()]);
-        return 'deleted';
+        return response([
+            'message'=>'Deleted',
+            'title'=>__('admin_local.Congratulations !'),
+            'text'=>__('admin_local.User removed successfully'),
+            'confirmButtonText'=>__('admin_local.Ok'),
+        ]);
     }
 
     public function updateStatus(Request $data){

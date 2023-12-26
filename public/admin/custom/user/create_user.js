@@ -18,9 +18,9 @@ $('#add_user_form').submit(function (e) {
             $('button[type=submit]', '#add_user_form').removeClass('disabled');
             swal({
                 icon: "success",
-                title: "Congratulations !",
-                text: 'User create suvccessfully',
-                confirmButtonText: "Ok",
+                title: datam.title,
+                text: datam.text,
+                confirmButtonText: datam.confirmButtonText,
             }).then(function () {
                 $('#add_user_form').trigger('reset');
                 $('button[type=button]', '#add_user_form').click();
@@ -68,7 +68,7 @@ $('#add_user_form').submit(function (e) {
                 icon: "warning",
                 title: "Warning !",
                 text: err_message[0],
-                confirmButtonText: "Ok",
+                confirmButtonText:"Ok",
             });
         }
     });

@@ -114,4 +114,8 @@ return array (
   'Ok' => 'Ok',
   'Congratulations !' => 'Congratulations !',
   'Role removed successfully' => 'Role removed successfully',
+  'User created successfully' => 'User created successfully',
+  'Something went wrong.' => 'Something went wrong.',
+  'User updated successfully' => 'User updated successfully',
+  'User removed successfully' => 'User removed successfully',
 );

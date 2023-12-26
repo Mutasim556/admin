@@ -45,7 +45,6 @@ $('#edit_user_form').submit(function (e) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (data) {
-            console.log(data);
             $('button[type=submit]', '#edit_user_form').html('Submit');
             $('button[type=submit]', '#edit_user_form').removeClass('disabled');
             $('td:nth-child(1)',trid).html(data.user.name);
@@ -55,9 +54,9 @@ $('#edit_user_form').submit(function (e) {
             $('td:nth-child(5)',trid).html(data.role);
             swal({
                 icon: "success",
-                title: "Congratulations !",
-                text: 'User data updated suvccessfully',
-                confirmButtonText: "Ok",
+                title: data.title,
+                text: data.text,
+                confirmButtonText: data.confirmButtonText,
             }).then(function () {
                 $('#edit_user_form').trigger('reset');
                 $('button[type=button]', '#edit_user_form').click();
@@ -90,9 +89,6 @@ $(document).on('change','#status_change',function(){
         url: 'user/update/status/'+update_id+"/"+status,
         success: function (data) {
             parent_td.empty().append(`<span class="mx-2">${data.status}</span><input data-status="${data.status=='Active'?'Inactive':'Active'}" id="status_change" type="checkbox" data-toggle="switchery" data-color="green"  data-secondary-color="red" data-size="small" ${data.status=='Active'?'checked':''} />`);
-            // parent_td.children('input').each(function (idx, obj) {
-            //     new Switchery($(this)[0], $(this).data());
-            // });
             new Switchery(parent_td.find('input')[0], parent_td.find('input').data());
         },
         error: function (err) {
@@ -126,9 +122,9 @@ $(document).on('click','#delete_button',function(){
                 success: function (data) {
                     swal({
                         icon: "success",
-                        title: "Congratulations !",
-                        text: 'User deleted successfully',
-                        confirmButtonText: "Ok",
+                        title: data.title,
+                        text: data.text,
+                        confirmButtonText: data.confirmButtonText,
                     }).then(function () {
                         $('#tr-'+delete_id).remove();
                     });
