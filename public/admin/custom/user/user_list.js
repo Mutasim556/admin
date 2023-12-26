@@ -10,12 +10,12 @@ $(document).on('click', '#edit_button', function () {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (data) {
-            $('#edit_user_form #user_id').val(data.id);
-            $('#edit_user_form #user_name').val(data.name);
-            $('#edit_user_form #username').val(data.username);
+            $('#edit_user_form #user_id').val(data.user.id);
+            $('#edit_user_form #user_name').val(data.user.name);
+            $('#edit_user_form #username').val(data.user.username);
             $('#edit_user_form #user_role').val(data.role);
-            $('#edit_user_form #user_email').val(data.email);
-            $('#edit_user_form #user_phone').val(data.phone);
+            $('#edit_user_form #user_email').val(data.user.email);
+            $('#edit_user_form #user_phone').val(data.user.phone);
         },
         error: function (err) {
             var err_message = err.responseJSON.message.split("(");
@@ -48,11 +48,11 @@ $('#edit_user_form').submit(function (e) {
             console.log(data);
             $('button[type=submit]', '#edit_user_form').html('Submit');
             $('button[type=submit]', '#edit_user_form').removeClass('disabled');
-            $('td:nth-child(1)',trid).html(data.name);
-            $('td:nth-child(2)',trid).html(data.email);
-            $('td:nth-child(3)',trid).html(data.phone);
-            $('td:nth-child(4)',trid).html(data.username);
-            $('td:nth-child(5)',trid).html(data.role==1?'Admin':(data.role==2?"Owner":"Staff"));
+            $('td:nth-child(1)',trid).html(data.user.name);
+            $('td:nth-child(2)',trid).html(data.user.email);
+            $('td:nth-child(3)',trid).html(data.user.phone);
+            $('td:nth-child(4)',trid).html(data.user.username);
+            $('td:nth-child(5)',trid).html(data.role);
             swal({
                 icon: "success",
                 title: "Congratulations !",
@@ -61,7 +61,7 @@ $('#edit_user_form').submit(function (e) {
             }).then(function () {
                 $('#edit_user_form').trigger('reset');
                 $('button[type=button]', '#edit_user_form').click();
-                
+
 
             });
         },
@@ -143,7 +143,7 @@ $(document).on('click','#delete_button',function(){
                     });
                 }
             });
-           
+
         } else {
             swal("Delete request canceld successfully");
         }

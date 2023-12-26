@@ -126,7 +126,7 @@
                             <div id="edit_permission">
                                <span>Getting Permissons ...... <i class="fa fa-spinner fa-spin" ></i></span>
                             </div>
-                           
+
                         </div>
 
                         <div class="row mt-4 mb-2">
@@ -230,7 +230,9 @@
         $(document).on('select2:open', () => {
             document.querySelector('.select2-search__field').focus();
         });
-        var oTable = $("#basic-1").DataTable();
+        var oTable = $("#basic-1").DataTable({
+            columnDefs: [{ width: 20, targets: 0 },{ width: 80, targets: 1 },{ width: 60, targets: 3 }],
+        });
 
         var form_url = "{{ route('role.store') }}";
     </script>

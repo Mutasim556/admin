@@ -8,6 +8,7 @@ use App\Mail\Admin\CreateUserMail;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -81,10 +82,15 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id) : Response
     {
-        $user = User::where('id',$id)->first();
-        return $user;
+        $user = User::findOrFail($id);
+        $role = $user->getRoleNames()->first();
+
+        return response([
+            'user'=>$user,
+            'role'=>$role,
+        ]);
     }
 
     /**
@@ -95,7 +101,6 @@ class UserController extends Controller
         $data->validate([
             'user_name'=>'required|max:50',
             'username'=>'required|max:50|unique:users,username,'.$id,
-            'user_role'=>'required',
             'user_email'=>'required|email|max:40|unique:users,email,'.$id,
             'user_phone'=>'required|min:11|max:15|unique:users,phone,'.$id,
         ]);
@@ -109,26 +114,32 @@ class UserController extends Controller
                 'phone' => $data->user_phone,
                 'username' => $data->username,
                 'password' => Hash::make($data->user_password),
-                'role' => $data->user_role,
             ]);
+            $user = User::findOrFail($id);
+            $user->syncRoles($data->user_role);
         }else{
             $update = User::where('id',$id)->update([
                 'name' => $data->user_name,
                 'email' => $data->user_email,
                 'phone' => $data->user_phone,
                 'username' => $data->username,
-                'role' => $data->user_role,
             ]);
+            $user = User::findOrFail($id);
+            $user->syncRoles($data->user_role);
         }
 
         if($update){
-            return  User::where('id',$id)->first();
+            $role = $user->getRoleNames()->first();
+            return response([
+                'user'=>$user,
+                'role'=>$role,
+            ]);
         }else{
             return response()->json([
                 'message'=>'Something went wrong.',
             ],422);
         }
-        
+
     }
 
     /**
@@ -146,5 +157,5 @@ class UserController extends Controller
         return $user;
     }
 
-    
+
 }
