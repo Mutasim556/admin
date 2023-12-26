@@ -12,7 +12,8 @@ $('#add_user_form').submit(function (e) {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        success: function (data) {
+        success: function (datam) {
+            let data = datam.user;
             $('button[type=submit]', '#add_user_form').html('Submit');
             $('button[type=submit]', '#add_user_form').removeClass('disabled');
             swal({
@@ -29,7 +30,7 @@ $('#add_user_form').submit(function (e) {
                     <td>${data.phone}</td>
                     <td>${data.username}</td>
                     <td>
-                        ${data.role == 1 ? 'Admin' : (data.role == 2 ? 'Owner' : 'Staff')}
+                        ${datam.role}
                     </td>
                     <td class="text-center">
                         <span class="mx-2">${data.status}</span><input

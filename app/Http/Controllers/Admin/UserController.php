@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
+use App\Mail\Admin\CreateUserMail;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -18,7 +21,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::where('delete','0')->get();
-        return view('admin.user.user_lists',compact('users'));
+        $roles = Role::all();
+        return view('admin.user.user_lists',compact('users','roles'));
     }
 
     /**
@@ -34,17 +38,31 @@ class UserController extends Controller
      */
     public function store(CreateUserRequest $data)
     {
-        $create = User::create([
-            'name' => $data->user_name,
-            'email' => $data->user_email,
-            'phone' => $data->user_phone,
-            'username' => $data->username,
-            'password' => Hash::make($data->user_password),
-            'role' => $data->user_role,
-        ]);
-        if($create){
-            $user = User::where('id',DB::getPdo()->lastInsertId())->first();
-            return $user;
+        // $create = User::create([
+        //     'name' => $data->user_name,
+        //     'email' => $data->user_email,
+        //     'phone' => $data->user_phone,
+        //     'username' => $data->username,
+        //     'password' => Hash::make($data->user_password),
+        //     'role' => $data->user_role,
+        // ]);
+        $user = new User();
+        $user->name = $data->user_name;
+        $user->email = $data->user_email;
+        $user->phone = $data->user_phone;
+        $user->username = $data->username;
+        $user->password = Hash::make($data->user_password);
+        $user->save();
+        $user->assignRole($data->user_role);
+
+        Mail::to($data->user_email)->send(new CreateUserMail($data->user_email,$data->user_password));
+
+        if($user){
+            $user = User::where('id',$user->id)->first();
+            return response([
+                'user'=>$user,
+                'role' => $user->getRoleNames()->first(),
+            ]);
         }else{
             return response()->json([
                 'message'=>'Something went wrong.',

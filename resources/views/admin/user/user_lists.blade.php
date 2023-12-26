@@ -77,10 +77,10 @@
                             <div class="col-lg-6 mt-2">
                                 <label for="user_role"><strong>{{ __('admin_local.Role') }} *</strong></label>
                                 <select class="form-control" name="user_role" id="user_role">
-                                    <option value="">Select Please</option>
-                                    <option value="1">Admin</option>
-                                    <option value="2">Owner</option>
-                                    <option value="3">Staff</option>
+                                    <option value="" selected disabled>{{ __("admin_local.Select Please") }}</option>
+                                    @foreach ($roles as $role)
+                                        <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -116,7 +116,7 @@
 
     {{-- Add User Modal End --}}
 
-    {{-- Add User Modal Start --}}
+    {{-- Edit User Modal Start --}}
 
     <div class="modal fade" id="edit-user-modal" tabindex="-1" aria-labelledby="bs-example-modal-lg" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -188,7 +188,7 @@
         <!-- /.modal-dialog -->
     </div>
 
-    {{-- Add User Modal End --}}
+    {{-- Edit User Modal End --}}
 
 
 
@@ -230,7 +230,7 @@
                                             <td>{{ $user->phone }}</td>
                                             <td>{{ $user->username }}</td>
                                             <td>
-                                                {{ $user->role == 1 ? 'Admin' : ($user->role == 2 ? 'Owner' : 'Staff') }}
+                                                {{ $user->getRoleNames()->first() }}
                                             </td>
                                             <td class="text-center">
                                                 <span class="mx-2">{{ $user->status }}</span><input
@@ -240,7 +240,7 @@
                                                     {{ $user->status == 'Active' ? 'checked' : '' }} {{ $user->id==Auth::user()->id?'disabled':'' }}/>
                                             </td>
                                             <td>
-                                                <div class="dropdown {{ $user->id==Auth::user()->id?'d-none':'' }}">
+                                                <div class="dropdown {{ $user->getRoleNames()->first()==='Super Admin'?'d-none':'' }}">
                                                     <button
                                                         class="btn btn-info text-white px-2 py-1 dropbtn">{{ __('admin_local.Action') }}
                                                         <i class="fa fa-angle-down"></i></button>

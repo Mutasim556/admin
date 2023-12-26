@@ -15,16 +15,17 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        \App\Models\User::factory()->create([
-            'name' => 'Admin',
-            'username' => 'admin',
-            'email' => 'admin@admin.com',
-            'phone' => '12345678912',
-            'password' => Hash::make('admin'),
-            'role' =>1 ,
-        ]);
+        // \App\Models\User::factory()->create([
+        //     'name' => 'Admin',
+        //     'username' => 'admin',
+        //     'email' => 'admin@admin.com',
+        //     'phone' => '12345678912',
+        //     'password' => Hash::make('admin'),
+        // ]);
+
 
         //all custom seeder
-        $this->call(LanguageSeeder::class);
+        $this->call(UserSeeder::class);
+        // $this->call(LanguageSeeder::class);
     }
 }
