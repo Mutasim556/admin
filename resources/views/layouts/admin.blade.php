@@ -41,13 +41,13 @@
     {{-- <div class="tap-top"><i data-feather="chevrons-up"></i></div> --}}
     <!-- tap on tap ends-->
     <!-- Loader starts-->
-    <div class="loader-wrapper">
+    {{-- <div class="loader-wrapper">
         <div class="dot"></div>
         <div class="dot"></div>
         <div class="dot"></div>
         <div class="dot"> </div>
         <div class="dot"></div>
-    </div>
+    </div> --}}
     <!-- Loader ends-->
     <!-- page-wrapper Start-->
     <div class="page-wrapper compact-wrapper" id="pageWrapper">

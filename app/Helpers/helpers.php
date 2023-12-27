@@ -21,3 +21,18 @@ function getLanguageSession() : string {
 function setLanguage(string $code) : void{
     session(['language'=>$code]);
 }
+
+function userRoleName(){
+    return auth()->guard('web')->user()->getRoleNames()->first();
+}
+
+
+function hasPermission(array $permission){
+    if(userRoleName()==='Super Admin'){
+        return true;
+    }else{
+        return auth()->guard('web')->user()->hasAnyPermission($permission);
+    }
+}
+
+

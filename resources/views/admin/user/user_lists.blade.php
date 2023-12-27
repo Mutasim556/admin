@@ -79,7 +79,7 @@
                                 <select class="form-control" name="user_role" id="user_role">
                                     <option value="" selected disabled>{{ __("admin_local.Select Please") }}</option>
                                     @foreach ($roles as $role)
-                                        <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                        <option value="{{ $role->name }}" {{ userRoleName()!='Super Admin'&&$role->name==='Super Admin'?'disabled':''}}>{{ $role->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -153,7 +153,7 @@
                                 <select class="form-control" name="user_role" id="user_role">
                                     <option value="" selected disabled>{{ __("admin_local.Select Please") }}</option>
                                     @foreach ($roles as $role)
-                                        <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                        <option value="{{ $role->name }}" {{ userRoleName()!='Super Admin'&&$role->name==='Super Admin'?'disabled':''}}>{{ $role->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -202,13 +202,14 @@
                     </div>
 
                     <div class="card-body">
-                        <div class="row mb-3">
-                            <div class="col-md-3">
-                                <button class="btn btn-success" type="btn" data-bs-toggle="modal"
-                                    data-bs-target="#add-user-modal">+ Add User</button>
+                        @if (hasPermission(['user-create']))
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <button class="btn btn-success" type="btn" data-bs-toggle="modal"
+                                        data-bs-target="#add-user-modal">+ Add User</button>
+                                </div>
                             </div>
-                        </div>
-
+                        @endif
                         <div class="table-responsive theme-scrollbar">
                             <table id="basic-1" class="display table-bordered">
                                 <thead>
@@ -233,30 +234,57 @@
                                                 {{ $user->getRoleNames()->first() }}
                                             </td>
                                             <td class="text-center">
-                                                <span class="mx-2">{{ $user->status }}</span><input
-                                                    data-status="{{ $user->status == 'Active' ? 'Inactive' : 'Active' }}"
-                                                    id="status_change" type="checkbox" data-toggle="switchery"
-                                                    data-color="green" data-secondary-color="red" data-size="small"
-                                                    {{ $user->status == 'Active' ? 'checked' : '' }} {{ $user->id==Auth::user()->id?'disabled':'' }}/>
+                                                @if ($user->getRoleNames()->first()==='Super Admin')
+                                                    <span class="badge badge-warning">Not Changeable</span>
+                                                @else
+                                                    @if (hasPermission(['user-update']))
+                                                        <span class="mx-2">{{ $user->status }}</span><input
+                                                        data-status="{{ $user->status == 'Active' ? 'Inactive' : 'Active' }}"
+                                                        id="status_change" type="checkbox" data-toggle="switchery"
+                                                        data-color="green" data-secondary-color="red" data-size="small"
+                                                        {{ $user->status == 'Active' ? 'checked' : '' }} {{ $user->id==Auth::user()->id?'disabled':'' }}/>
+                                                    @else
+                                                        <span class="badge badge-danger">No Permission</span>
+                                                    @endif
+                                                    
+                                                @endif
+                                               
                                             </td>
                                             <td>
-                                                <div class="dropdown {{ $user->id===Auth::user()->id?'d-none':'' }}">
-                                                    <button
-                                                        class="btn btn-info text-white px-2 py-1 dropbtn">{{ __('admin_local.Action') }}
-                                                        <i class="fa fa-angle-down"></i></button>
-                                                    <div class="dropdown-content">
-                                                        <a data-bs-toggle="modal" style="cursor: pointer;"
-                                                            data-bs-target="#edit-user-modal" class="text-primary"
-                                                            id="edit_button"><i class=" fa fa-edit mx-1"></i>Edit</a>
-
-                                                        {{-- <a class="text-info" id="delete_button" style="cursor: pointer;"><i
-                                                            class="fa fa-trash mx-1"></i> Email</a> --}}
-
-                                                        <a class="text-danger" id="delete_button"
-                                                            style="cursor: pointer;"><i class="fa fa-trash mx-1"></i>
-                                                            Delete</a>
+                                                @if (hasPermission(['user-update','user-delete']))
+                                                @if ($user->id===Auth::user()->id)
+                                                    <span class="badge badge-danger">No Permission</span>
+                                                @elseif ($user->getRoleNames()->first()==='Super Admin')
+                                                    <span class="badge badge-warning">Not Changeable</span>
+                                                @else
+                                                    <div class="dropdown ">
+                                                        <button
+                                                            class="btn btn-info text-white px-2 py-1 dropbtn">{{ __('admin_local.Action') }}
+                                                            <i class="fa fa-angle-down"></i></button>
+                                                        <div class="dropdown-content">
+                                                            @if (hasPermission(['user-update']))
+                                                                <a data-bs-toggle="modal" style="cursor: pointer;"
+                                                                    data-bs-target="#edit-user-modal" class="text-primary"
+                                                                    id="edit_button"><i class=" fa fa-edit mx-1"></i>Edit</a>
+                                                            @endif
+                                                            @if (hasPermission(['user-delete']))
+                                                                <a class="text-danger" id="delete_button"
+                                                                style="cursor: pointer;"><i class="fa fa-trash mx-1"></i>
+                                                                Delete</a>
+                                                            @endif
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                @endif
+                                                
+                                                @else
+                                                    @if ($user->getRoleNames()->first()==='Super Admin')
+                                                    <span class="badge badge-warning">Not Changeable</span>
+                                                    @else
+                                                    <span class="badge badge-danger">No Permission</span>
+                                                    @endif
+                                                    
+                                                @endif
+                                                
 
                                             </td>
                                         </tr>

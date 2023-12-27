@@ -186,16 +186,25 @@
                                             <td>{{ $role->id }}</td>
                                             <td>{{ $role->name }}</td>
                                             <td>
-                                                @if (count($role->permissions)<1)
-                                                    <span class="badge badge-danger">no permission</span>
+                                                @if ($role->name==='Super Admin')
+                                                    <span class="badge badge-info">{{ __('admin_local.All Permission') }}</span>
+                                                @else
+                                                    @if (count($role->permissions)<1)
+                                                    <span class="badge badge-danger">{{ __('admin_local.No Permission') }}</span>
+                                                    @endif
+                                                    @foreach ($role->permissions as $permission)
+                                                        <span class="badge badge-success">{{ $permission->name }}</span>
+                                                    @endforeach
                                                 @endif
-                                                @foreach ($role->permissions as $permission)
-                                                    <span class="badge badge-success">{{ $permission->name }}</span>
-                                                @endforeach
+                                               
                                             </td>
                                             <td>
-                                                <button id="edit_button" data-bs-toggle="modal" style="cursor: pointer;" data-bs-target="#edit-role-modal" class="btn btn-primary px-2 py-1"><i class="fa fa-pencil-square-o"></i></button>
-                                                <button id="delete_button" class="btn btn-danger px-2 py-1"><i class="fa fa-trash"></i></button>
+                                                @if ($role->name==='Super Admin')
+                                                    <span class="badge badge-danger">{{ __('admin_local.No Action') }}</span>
+                                                @else
+                                                    <button id="edit_button" data-bs-toggle="modal" style="cursor: pointer;" data-bs-target="#edit-role-modal" class="btn btn-primary px-2 py-1"><i class="fa fa-pencil-square-o"></i></button>
+                                                    <button id="delete_button" class="btn btn-danger px-2 py-1"><i class="fa fa-trash"></i></button>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

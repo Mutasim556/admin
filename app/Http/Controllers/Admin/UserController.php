@@ -7,6 +7,7 @@ use App\Http\Requests\CreateUserRequest;
 use App\Mail\Admin\CreateUserMail;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -17,9 +18,19 @@ use Spatie\Permission\Models\Role;
 class UserController extends Controller
 {
     /**
+     * Contruct method will load first
+     */
+    public function __construct()
+    {
+        $this->middleware(['permission:user-index','web'])->only('index');
+        $this->middleware(['permission:user-create','web'])->only('store');
+        $this->middleware(['permission:user-update','web'])->only(['edit','update','updateStatus']);
+        $this->middleware(['permission:user-delete','web'])->only('destroy');
+    }
+    /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
         $users = User::where('delete','0')->get();
         $roles = Role::all();
@@ -37,16 +48,8 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateUserRequest $data)
+    public function store(CreateUserRequest $data) : Response
     {
-        // $create = User::create([
-        //     'name' => $data->user_name,
-        //     'email' => $data->user_email,
-        //     'phone' => $data->user_phone,
-        //     'username' => $data->username,
-        //     'password' => Hash::make($data->user_password),
-        //     'role' => $data->user_role,
-        // ]);
         $user = new User();
         $user->name = $data->user_name;
         $user->email = $data->user_email;
@@ -66,6 +69,9 @@ class UserController extends Controller
                 'title'=>__('admin_local.Congratulations !'),
                 'text'=>__('admin_local.User created successfully'),
                 'confirmButtonText'=>__('admin_local.Ok'),
+                'hasAnyPermission' => hasPermission(['user-update','user-delete']),
+                'hasEditPermission' => hasPermission(['user-update']),
+                'hasDeletePermission' => hasPermission(['user-delete']),
             ]);
         }else{
             return response()->json([
@@ -101,7 +107,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $data, string $id)
+    public function update(Request $data, string $id) : Response
     {
         $data->validate([
             'user_name'=>'required|max:50',
@@ -148,13 +154,12 @@ class UserController extends Controller
                 'message'=>__('admin_local.Something went wrong.'),
             ],422);
         }
-
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id) : Response
     {
         User::where('id',$id)->update(['delete'=>1,'updated_at'=>Carbon::now()]);
         return response([

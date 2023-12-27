@@ -5,6 +5,9 @@
                 >{{ __('admin_local.Dashboard') }}</span>
         </a>
     </li>
+    @if (hasPermission(['user-index','user-create','user-update','user-delete']))
+        
+    
     <li class="sidebar-list">
         <a class="sidebar-link sidebar-title" href="javascript:void(0)"
             aria-expanded="false">
@@ -20,6 +23,7 @@
             </li>
         </ul>
     </li>
+    @endif
     <li class="sidebar-list">
         <a class="sidebar-link sidebar-title" href="javascript:void(0)"
             aria-expanded="false">

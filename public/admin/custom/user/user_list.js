@@ -18,13 +18,29 @@ $(document).on('click', '#edit_button', function () {
             $('#edit_user_form #user_phone').val(data.user.phone);
         },
         error: function (err) {
+            // console.log('Hello');
             var err_message = err.responseJSON.message.split("(");
-            swal({
-                icon: "warning",
-                title: "Warning !",
-                text: err_message[0],
-                confirmButtonText: "Ok",
-            });
+            if(err.status===403){
+                swal({
+                    icon: "warning",
+                    title: "Warning !",
+                    text: err_message[0],
+                    confirmButtonText: "Ok",
+                }).then(function(){
+                    $('button[type=button]', '#edit_user_form').click();
+                });
+                
+            }else{
+                swal({
+                    icon: "warning",
+                    title: "Warning !",
+                    text: err_message[0],
+                    confirmButtonText: "Ok",
+                });
+            }
+            
+            
+            
         }
     });
 
